@@ -3,3 +3,10 @@ node_modules/
 .env.local
 *.log
 .DS_Store
+
+# 忽略除 README.md 外的所有 Markdown
+*.md
+!README.md
+
+# Claude/Cursor skills (避免提交大量第三方资源/字体/脚本)
+.claude/skills/
