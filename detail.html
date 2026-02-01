@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>详情 · Beichen Xu</title>
+  <meta name="description" content="Education / Projects / Experience / Publications details" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .detail-shell {
+      padding-block: var(--space-10);
+    }
+
+    .detail-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-6);
+    }
+
+    .back-row {
+      display: inline-flex;
+      gap: var(--space-3);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .detail-card {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .detail-kicker {
+      margin: 0 0 var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .detail-title {
+      margin: 0 0 var(--space-4);
+      font-size: var(--text-2xl);
+      line-height: var(--leading-tight);
+      letter-spacing: -0.02em;
+    }
+
+    .detail-subtitle {
+      margin: 0 0 var(--space-6);
+      color: var(--muted);
+      max-width: 90ch;
+    }
+
+    .detail-grid {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    @media (min-width: 56rem) {
+      .detail-grid {
+        grid-template-columns: 1.6fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .detail-section h2 {
+      margin: 0 0 var(--space-3);
+      font-size: var(--text-xl);
+    }
+
+    .detail-section p {
+      margin: 0;
+    }
+
+    .detail-section p + p {
+      margin-top: var(--space-3);
+    }
+
+    .detail-side {
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: clamp(7ch, 18vw, 12ch) 1fr;
+      gap: var(--space-3);
+      padding-block: var(--space-3);
+      border-top: 1px solid var(--hairline);
+    }
+
+    .kv:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .kv dt {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .kv dd { margin: 0; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="top"></div>
+  <a class="skip-link" href="#main-content">
+    <span lang="zh-CN">跳转到正文</span>
+    <span lang="en">Skip to content</span>
+  </a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html#top">
+        <span lang="zh-CN">徐北辰</span>
+        <span lang="en">Beichen Xu</span>
+      </a>
+
+      <div class="header-actions">
+        <div class="lang-switch">
+          <button class="lang-btn" type="button" data-set-lang="zh" aria-pressed="true">中</button>
+          <button class="lang-btn" type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="btn btn-secondary" href="index.html#top">
+          <span lang="zh-CN">返回首页</span>
+          <span lang="en">Back home</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="site-main detail-shell">
+    <div class="container">
+      <div class="detail-topbar">
+        <div class="back-row">
+          <a class="btn btn-ghost" id="back-link" href="index.html#top">
+            <span lang="zh-CN">← 返回</span>
+            <span lang="en">← Back</span>
+          </a>
+        </div>
+      </div>
+
+      <article class="detail-card" aria-labelledby="detail-title">
+        <p class="detail-kicker" id="detail-kicker">
+          <span lang="zh-CN">详情</span>
+          <span lang="en">DETAIL</span>
+        </p>
+        <h1 class="detail-title" id="detail-title"></h1>
+        <p class="detail-subtitle" id="detail-subtitle"></p>
+
+        <div class="detail-grid">
+          <section class="detail-section prose" id="detail-body" aria-label="Detail"></section>
+
+          <aside class="detail-side" aria-label="Meta">
+            <dl id="detail-meta"></dl>
+            <div id="detail-links" style="margin-top: var(--space-5);"></div>
+          </aside>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const zhBtn = document.querySelector('[data-set-lang="zh"]');
+      const enBtn = document.querySelector('[data-set-lang="en"]');
+
+      const setLang = (lang) => {
+        root.dataset.lang = lang;
+        zhBtn?.setAttribute('aria-pressed', lang === 'zh' ? 'true' : 'false');
+        enBtn?.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+        try { localStorage.setItem('lang', lang); } catch { /* ignore */ }
+      };
+
+      const saved = (() => {
+        try { return localStorage.getItem('lang'); } catch { return null; }
+      })();
+
+      const prefersZh = (navigator.language || '').toLowerCase().startsWith('zh');
+      setLang(saved || (prefersZh ? 'zh' : 'en'));
+
+      zhBtn?.addEventListener('click', () => setLang('zh'));
+      enBtn?.addEventListener('click', () => setLang('en'));
+
+      const qs = new URLSearchParams(location.search);
+      const item = qs.get('item') || '';
+
+      const sectionFor = (key) => {
+        if (key.startsWith('education-')) return 'education';
+        if (key.startsWith('project-')) return 'projects';
+        if (key.startsWith('experience-')) return 'experience';
+        if (key.startsWith('publication-')) return 'publications';
+        return 'top';
+      };
+
+      const data = {
+        "education-imperial-mres": {
+          kind: { zh: "教育", en: "Education" },
+          title: { zh: "帝国理工学院 · MRes", en: "Imperial College London · MRes" },
+          subtitle: {
+            zh: "Machine Learning and Big Data in the Physical Sciences（2023–2024，物理系）。面向物理科学场景的数据驱动建模，强调可复现训练流程与高性能计算。",
+            en: "MRes in Machine Learning and Big Data in the Physical Sciences (2023–2024, Department of Physics). Data-driven modeling for physical sciences with an emphasis on reproducible pipelines and HPC."
+          },
+          highlights: {
+            zh: [
+              "课程与主题：时间序列建模、加速数据处理、FPGA、宇宙学等",
+              "研究导向：将 ML 方法用于物理场景的建模/推断与不确定性分析",
+              "工程导向：重视可复现、可扩展的实验与评估流程"
+            ],
+            en: [
+              "Topics: time series modeling, accelerated data processing, FPGA, cosmology",
+              "Research-driven: applying ML to modeling/inference with uncertainty analysis",
+              "Engineering-first: reproducible and scalable experimentation workflows"
+            ]
+          },
+          meta: [
+            { k: { zh: "时间", en: "Period" }, v: { zh: "2023–2024", en: "2023–2024" } },
+            { k: { zh: "院系", en: "Department" }, v: { zh: "物理系", en: "Physics" } },
+          ],
+          tags: ["Time Series", "HPC", "FPGA", "Cosmology"],
+          links: []
+        },
+        "education-birmingham-bsc": {
+          kind: { zh: "教育", en: "Education" },
+          title: { zh: "伯明翰大学 · BSc", en: "University of Birmingham · BSc" },
+          subtitle: {
+            zh: "Physics（2020–2023，一等荣誉）。系统训练了数学物理与统计推断能力，为后续 ML/AI4Science 方向打下基础。",
+            en: "BSc in Physics (2020–2023, First Class Honours). A solid foundation in mathematical physics and statistical inference, supporting later work in ML/AI4Science."
+          },
+          highlights: {
+            zh: [
+              "核心训练：统计学、相对论、量子力学、线性代数",
+              "能力沉淀：建模、推导、实验与数据分析的体系化方法",
+              "过渡方向：从物理建模逐步扩展到 ML 与科学计算"
+            ],
+            en: [
+              "Core training: statistics, relativity, quantum mechanics, linear algebra",
+              "Skill set: structured modeling, derivations, experiments, and data analysis",
+              "Trajectory: from physics modeling to ML and scientific computing"
+            ]
+          },
+          meta: [
+            { k: { zh: "时间", en: "Period" }, v: { zh: "2020–2023", en: "2020–2023" } },
+            { k: { zh: "荣誉", en: "Honours" }, v: { zh: "一等荣誉", en: "First Class" } },
+          ],
+          tags: ["Statistics", "Relativity", "Quantum", "Linear Algebra"],
+          links: []
+        },
+        "project-aerodit": {
+          kind: { zh: "项目", en: "Project" },
+          title: { zh: "AeroDiT（用于 RANS 的扩散 Transformer）", en: "AeroDiT (Diffusion Transformers for RANS)" },
+          subtitle: {
+            zh: "把扩散模型与 Transformer 结合，用于 RANS（Reynolds-Averaged Navier–Stokes）空气动力学仿真，探索更高效、更稳定的生成式预测与重建。",
+            en: "Combining diffusion models and Transformers for RANS aerodynamic simulations, exploring efficient and stable generative prediction and reconstruction."
+          },
+          highlights: {
+            zh: [
+              "问题：翼型流动等 CFD 场景的高维场预测与重建",
+              "方法：Diffusion + Transformer 的生成式建模框架",
+              "目标：在精度、稳定性与推理效率之间取得更优权衡"
+            ],
+            en: [
+              "Problem: high-dimensional field prediction/reconstruction for CFD (e.g., airfoils)",
+              "Approach: a generative modeling framework with Diffusion + Transformers",
+              "Goal: better trade-offs across accuracy, stability, and inference efficiency"
+            ]
+          },
+          meta: [
+            { k: { zh: "领域", en: "Domain" }, v: { zh: "流体力学 / CFD", en: "Fluid dynamics / CFD" } },
+            { k: { zh: "方向", en: "Focus" }, v: { zh: "生成式建模", en: "Generative modeling" } },
+          ],
+          tags: ["Diffusion", "Transformers", "Fluid Dynamics"],
+          links: []
+        },
+        "project-gravitational-wave-wgan": {
+          kind: { zh: "项目", en: "Project" },
+          title: { zh: "MRes 项目 · 引力波 WGAN", en: "MRes Project · Gravitational Wave WGAN" },
+          subtitle: {
+            zh: "模拟多源引力波时序信号，训练 WGAN 从信号中重建物理参数；在 HPC 上进行训练与可视化分析。",
+            en: "Simulated multi-source gravitational-wave time series and trained WGANs to reconstruct physical parameters; trained and analyzed on HPC."
+          },
+          highlights: {
+            zh: [
+              "数据：可控的多源引力波时序合成与噪声建模",
+              "模型：WGAN 训练稳定性与参数重建评估",
+              "工程：在 HPC 环境下组织训练、日志与可视化分析"
+            ],
+            en: [
+              "Data: controllable multi-source signal synthesis and noise modeling",
+              "Model: WGAN training stability and parameter reconstruction evaluation",
+              "Engineering: structured training, logging, and analysis on HPC"
+            ]
+          },
+          meta: [
+            { k: { zh: "类型", en: "Type" }, v: { zh: "科研项目", en: "Research project" } },
+            { k: { zh: "环境", en: "Compute" }, v: { zh: "HPC", en: "HPC" } },
+          ],
+          tags: ["PyTorch", "PyTorch Lightning", "HPC", "Time Series"],
+          links: []
+        },
+        "project-gis-remote-sensing-pipelines": {
+          kind: { zh: "项目", en: "Project" },
+          title: { zh: "多模态 GIS / 遥感训练流程", en: "Multimodal GIS / Remote Sensing Pipelines" },
+          subtitle: {
+            zh: "面向大规模地理遥感任务构建 VL/多模态训练与评估流程，覆盖道路提取、轨迹建模与卫星影像理解，并包含 LoRA 与全参微调实验。",
+            en: "Built vision–language / multimodal training and evaluation pipelines for large-scale geospatial tasks, including road extraction, trajectory modeling, and satellite understanding—covering LoRA and full fine-tuning."
+          },
+          highlights: {
+            zh: [
+              "统一数据与评估：多数据源、多区域的训练/评测对齐",
+              "适配策略：LoRA 与全参微调的对比与效率优化",
+              "工程化：多 GPU 工作流、可复现配置与基准体系"
+            ],
+            en: [
+              "Unified data & eval: alignment across sources/regions for training and benchmarking",
+              "Adaptation: LoRA vs full fine-tuning with efficiency trade-offs",
+              "Engineering: multi-GPU workflows, reproducible configs, and benchmarks"
+            ]
+          },
+          meta: [
+            { k: { zh: "场景", en: "Use cases" }, v: { zh: "道路提取 / 轨迹 / 卫星理解", en: "Roads / trajectories / satellite understanding" } },
+            { k: { zh: "方法", en: "Methods" }, v: { zh: "VL / 多模态", en: "Vision–language / multimodal" } },
+          ],
+          tags: ["Vision–Language", "LoRA", "Multi-GPU", "Remote Sensing"],
+          links: []
+        },
+        "project-ml-enhanced-bayesian-inference": {
+          kind: { zh: "项目", en: "Project" },
+          title: { zh: "机器学习增强的贝叶斯推断（嵌套采样）", en: "ML-enhanced Bayesian Inference (Nested Sampling)" },
+          subtitle: {
+            zh: "在宇宙学推断中结合嵌套采样与机器学习（masked aggressive flow），用于后验分布生成与参数估计，并参与维护相关开源 Python 包。",
+            en: "Combined nested sampling with machine learning (masked aggressive flow) for cosmological inference—posterior generation and parameter estimation—and contributed to an open-source Python package."
+          },
+          highlights: {
+            zh: [
+              "核心：贝叶斯推断与嵌套采样的高效后验探索",
+              "增强：用 flow 类模型加速后验生成与近似",
+              "工程：实验脚本化、结果可追溯与复现实验组织"
+            ],
+            en: [
+              "Core: Bayesian inference with efficient posterior exploration via nested sampling",
+              "Boost: flow-based acceleration for posterior approximation/generation",
+              "Engineering: scripted experiments and traceable, reproducible runs"
+            ]
+          },
+          meta: [
+            { k: { zh: "领域", en: "Domain" }, v: { zh: "宇宙学推断", en: "Cosmological inference" } },
+            { k: { zh: "语言", en: "Language" }, v: { zh: "Python", en: "Python" } },
+          ],
+          tags: ["Bayesian", "Nested Sampling", "Normalizing Flows", "Python"],
+          links: []
+        },
+        "experience-thisrain-founder": {
+          kind: { zh: "经历", en: "Experience" },
+          title: { zh: "创始人 / CEO · 非雨（AIGC 创业）", en: "Founder / CEO · ThisRainIsNotARealRain (AIGC startup)" },
+          subtitle: {
+            zh: "以 RealRain 为核心，构建面向动漫内容工业化的多 Agent 协作生产系统与数字孪生产线。",
+            en: "Building RealRain: a multi-agent production system and digital-twin pipeline for industrializing animation content creation."
+          },
+          highlights: {
+            zh: [
+              "用“工业4.0”思路把传统产线映射为可模拟/回放/调度的人机协作流程",
+              "按产线节点组织多 Agent 协作层，强调可替换、可升级、边界可控",
+              "搭建多模态资产管理与检索体系，做世界观/设定一致性管理"
+            ],
+            en: [
+              "Industry 4.0–inspired digital-twin pipeline with simulation/replay/scheduling",
+              "Stage-oriented multi-agent orchestration: modular, swappable, controllable",
+              "Multimodal asset management/retrieval with consistency control"
+            ]
+          },
+          meta: [
+            { k: { zh: "时间", en: "Period" }, v: { zh: "2026 — 至今", en: "2026 — Present" } },
+            { k: { zh: "方向", en: "Focus" }, v: { zh: "AIGC 系统 / 数字孪生", en: "AIGC systems / Digital twin" } },
+          ],
+          tags: ["AIGC", "Multi-agent", "Digital Twin", "Multimodal"],
+          links: []
+        },
+        "experience-maptech-ai-engineer": {
+          kind: { zh: "经历", en: "Experience" },
+          title: { zh: "AI 算法工程师 · MapTech（北京）", en: "AI Algorithm Engineer · MapTech (Beijing)" },
+          subtitle: {
+            zh: "计算机视觉/视觉语言方向：为 GIS 与遥感任务构建 VL/多模态训练与评估流程，并推动研究原型落地为生产组件。",
+            en: "Computer vision & vision–language: built VL/multimodal pipelines for GIS and remote sensing, and shipped research prototypes as production components."
+          },
+          highlights: {
+            zh: [
+              "主导全参微调与 LoRA 轻量适配实验（如 Qwen-VL）",
+              "设计地理特征 tokenization 与融合策略（patch、轨迹 embedding、hint maps）",
+              "搭建可复现多 GPU 训练/评估工作流，优化数据对齐与 benchmarking"
+            ],
+            en: [
+              "Led full fine-tuning and LoRA adaptation experiments (e.g., Qwen-VL)",
+              "Designed geospatial tokenization & fusion (patches, trajectory embeddings, hint maps)",
+              "Built reproducible multi-GPU train/eval workflows and improved benchmarking"
+            ]
+          },
+          meta: [
+            { k: { zh: "时间", en: "Period" }, v: { zh: "2025 — 2026", en: "2025 — 2026" } },
+            { k: { zh: "方向", en: "Focus" }, v: { zh: "GIS · 遥感 · 多模态", en: "GIS · Remote sensing · Multimodal" } },
+          ],
+          tags: ["Computer Vision", "Vision–Language", "LoRA", "Multi-GPU"],
+          links: []
+        },
+        "experience-science42-researcher": {
+          kind: { zh: "经历", en: "Experience" },
+          title: { zh: "AI 算法研究员 · Science42.tech（北京）", en: "AI Algorithm Researcher · Science42.tech (Beijing)" },
+          subtitle: {
+            zh: "研究 Transformers / Diffusion / GNN 在流体、医学与能源等科学场景的应用，并与多所高校/研究机构保持合作交流。",
+            en: "Researched Transformers/Diffusion/GNNs for scientific domains (fluids, biomedicine, energy) and collaborated with academic partners."
+          },
+          highlights: {
+            zh: [
+              "科学计算场景中的模型方法探索与实验复现",
+              "与清华、西湖、IMEC 等团队保持合作交流",
+              "开发 physics-informed AI 模型并推动论文产出"
+            ],
+            en: [
+              "Method exploration and reproducible experiments in scientific ML",
+              "Collaborations with teams such as Tsinghua, Westlake, and IMEC",
+              "Physics-informed AI modeling and publication efforts"
+            ]
+          },
+          meta: [
+            { k: { zh: "时间", en: "Period" }, v: { zh: "2025", en: "2025" } },
+          ],
+          tags: ["Transformers", "Diffusion", "GNN", "AI4Science"],
+          links: []
+        },
+        "experience-kavli-intern": {
+          kind: { zh: "经历", en: "Experience" },
+          title: { zh: "暑期实习 · Kavli Institute of Cosmology（剑桥）", en: "Summer Intern · Kavli Institute of Cosmology (Cambridge)" },
+          subtitle: {
+            zh: "研究 ML 增强的贝叶斯推断：嵌套采样 + masked aggressive flow 生成后验，并参与开源 Python 包协作。",
+            en: "Worked on ML-enhanced Bayesian inference: nested sampling + masked aggressive flow for posterior generation, and contributed to an open-source Python package."
+          },
+          highlights: {
+            zh: [
+              "以 nested sampling 进行后验探索与参数推断",
+              "引入 flow 模型用于后验近似/生成",
+              "参与开源包 “margarine” 的贡献与协作"
+            ],
+            en: [
+              "Posterior exploration and parameter inference with nested sampling",
+              "Flow-based posterior approximation/generation",
+              "Open-source contributions to “margarine”"
+            ]
+          },
+          meta: [
+            { k: { zh: "时间", en: "Period" }, v: { zh: "2022", en: "2022" } },
+          ],
+          tags: ["Bayesian", "Nested Sampling", "Python", "Open Source"],
+          links: []
+        },
+        "experience-purple-mountain-intern": {
+          kind: { zh: "经历", en: "Experience" },
+          title: { zh: "暑期实习 · 紫金山天文台（南京）", en: "Summer Intern · Purple Mountain Observatory (Nanjing)" },
+          subtitle: {
+            zh: "对 GRB 现象做系统性综述；用 Python 对 Swift GRB 数据进行拟合与分析，改进参数估计流程。",
+            en: "Reviewed GRB literature; analyzed Swift GRB data with Python (fitting and statistical analysis) and improved parameter estimation workflows."
+          },
+          highlights: {
+            zh: [
+              "对 GRB 现象进行综述整理与研究笔记沉淀",
+              "对 Swift 数据做拟合与统计分析",
+              "使用 iminuit 完成最小化与误差分析流程"
+            ],
+            en: [
+              "Literature review and structured research notes on GRBs",
+              "Fitting and statistical analysis on Swift GRB data",
+              "Optimization and uncertainty analysis with iminuit"
+            ]
+          },
+          meta: [
+            { k: { zh: "时间", en: "Period" }, v: { zh: "2021", en: "2021" } },
+          ],
+          tags: ["Python", "Statistics", "iminuit", "Astronomy"],
+          links: []
+        },
+        "publication-expanding-balloon": {
+          kind: { zh: "论文", en: "Publication" },
+          title: { zh: "An expanding balloon: a small universe.", en: "An expanding balloon: a small universe." },
+          subtitle: {
+            zh: "Physics Education 53.6 (2018): 065005。一个直观讲解宇宙膨胀类比的科普/教学向文章。",
+            en: "Physics Education 53.6 (2018): 065005. A teaching-oriented article using an expanding-balloon analogy to explain cosmic expansion."
+          },
+          highlights: {
+            zh: [
+              "用清晰的类比帮助理解“空间膨胀”与观测现象的关系",
+              "面向教学场景：强调可讲授、可演示与概念澄清",
+              "给出可用于课堂/科普的叙事结构与解释路径"
+            ],
+            en: [
+              "A clear analogy linking 'expanding space' to observable phenomena",
+              "Teaching-oriented: explainable, demonstrable, and concept-clarifying",
+              "A structured narrative for classroom/science outreach use"
+            ]
+          },
+          meta: [
+            { k: { zh: "期刊", en: "Venue" }, v: { zh: "Physics Education", en: "Physics Education" } },
+            { k: { zh: "年份", en: "Year" }, v: { zh: "2018", en: "2018" } },
+          ],
+          tags: ["Science Education", "Cosmology"],
+          links: [
+            {
+              label: { zh: "论文原文（IOPscience）", en: "Read on IOPscience" },
+              url: "https://iopscience.iop.org/article/10.1088/1361-6552/aad71f"
+            }
+          ]
+        },
+        "publication-aerodit-paper": {
+          kind: { zh: "论文", en: "Publication" },
+          title: { zh: "AeroDiT: Diffusion Transformers for Reynolds-Averaged Navier-Stokes Simulations of Airfoil Flows", en: "AeroDiT: Diffusion Transformers for Reynolds-Averaged Navier-Stokes Simulations of Airfoil Flows" },
+          subtitle: {
+            zh: "围绕 RANS 翼型流动仿真场景，探索 Diffusion Transformer 的建模与推理能力。",
+            en: "Explores Diffusion Transformers for RANS airfoil-flow simulations."
+          },
+          highlights: {
+            zh: [
+              "问题：RANS 仿真中的高维流场预测与重建",
+              "方法：扩散模型 + Transformer 的生成式框架",
+              "目标：更稳定、更高效的仿真近似与推理"
+            ],
+            en: [
+              "Problem: high-dimensional flow-field prediction/reconstruction in RANS",
+              "Method: generative Diffusion + Transformer framework",
+              "Goal: stable and efficient approximation/inference"
+            ]
+          },
+          meta: [
+            { k: { zh: "作者", en: "Authors" }, v: { zh: "Beichen Xu 等", en: "Beichen Xu et al." } },
+          ],
+          tags: ["Diffusion", "Transformers", "CFD"],
+          links: []
+        }
+      };
+
+      const record = data[item];
+      const kind = record?.kind || { zh: "详情", en: "Detail" };
+      const title = record?.title || { zh: "未找到该条目", en: "Item not found" };
+      const subtitle = record?.subtitle || { zh: "链接参数不正确，或该条目尚未补充详情。", en: "The link is invalid, or this item hasn’t been filled in yet." };
+
+      const kickerEl = document.getElementById('detail-kicker');
+      const titleEl = document.getElementById('detail-title');
+      const subtitleEl = document.getElementById('detail-subtitle');
+      const bodyEl = document.getElementById('detail-body');
+      const metaEl = document.getElementById('detail-meta');
+      const linksEl = document.getElementById('detail-links');
+      const backLink = document.getElementById('back-link');
+
+      const section = sectionFor(item);
+      backLink.href = `index.html#${section}`;
+
+      const esc = (s) => String(s ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+
+      kickerEl.innerHTML = `
+        <span lang="zh-CN">${esc(kind.zh)}</span>
+        <span lang="en">${esc(kind.en.toUpperCase())}</span>
+      `;
+      titleEl.innerHTML = `
+        <span lang="zh-CN">${title.zh}</span>
+        <span lang="en">${title.en}</span>
+      `;
+      subtitleEl.innerHTML = `
+        <span lang="zh-CN">${subtitle.zh}</span>
+        <span lang="en">${subtitle.en}</span>
+      `;
+
+      const renderHighlights = (list, lang) => {
+        const items = (list?.[lang] || []).map((x) => `<li>${esc(x)}</li>`).join('');
+        if (!items) return '';
+        return `<ul class="bullets muted">${items}</ul>`;
+      };
+
+      const h2 = (zh, en) => `<h2><span lang="zh-CN">${esc(zh)}</span><span lang="en">${esc(en)}</span></h2>`;
+
+      if (!record) {
+        bodyEl.innerHTML = `
+          ${h2('说明', 'Note')}
+          <p class="muted"><span lang="zh-CN">请从首页点击条目进入，或检查 URL 参数是否正确。</span><span lang="en">Please enter from the homepage or verify the URL parameter.</span></p>
+        `;
+      } else {
+        const highlightsHtml = `
+          <div class="detail-section">
+            ${h2('要点', 'Highlights')}
+            <div lang="zh-CN">${renderHighlights(record.highlights, 'zh')}</div>
+            <div lang="en">${renderHighlights(record.highlights, 'en')}</div>
+          </div>
+        `;
+
+        const tags = (record.tags || []).map((t) => `<li>${esc(t)}</li>`).join('');
+        const tagsHtml = tags ? `
+          <div class="detail-section" style="margin-top: var(--space-6);">
+            ${h2('标签', 'Tags')}
+            <ul class="meta">${tags}</ul>
+          </div>
+        ` : '';
+
+        bodyEl.innerHTML = `${highlightsHtml}${tagsHtml}`;
+
+        const meta = record.meta || [];
+        metaEl.innerHTML = meta.map(({ k, v }) => {
+          return `
+            <div class="kv">
+              <dt><span lang="zh-CN">${esc(k.zh)}</span><span lang="en">${esc(k.en)}</span></dt>
+              <dd><span lang="zh-CN">${esc(v.zh)}</span><span lang="en">${esc(v.en)}</span></dd>
+            </div>
+          `;
+        }).join('');
+
+        const links = record.links || [];
+        if (links.length) {
+          const btns = links.map((l) => `
+            <p style="margin: 0 0 var(--space-3);">
+              <a class="btn btn-primary" href="${esc(l.url)}" target="_blank" rel="noreferrer">
+                <span lang="zh-CN">${esc(l.label.zh)}</span>
+                <span lang="en">${esc(l.label.en)}</span>
+              </a>
+            </p>
+          `).join('');
+          linksEl.innerHTML = `
+            <div class="detail-section">
+              ${h2('链接', 'Links')}
+              ${btns}
+            </div>
+          `;
+        } else {
+          linksEl.innerHTML = '';
+        }
+      }
+
+      // Make document title reflect the item
+      const titleText = (root.dataset.lang === 'en' ? title.en : title.zh) || title.en;
+      document.title = `${titleText} · Beichen Xu`;
+    })();
+  </script>
+</body>
+</html>
+
