@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light">
     <title>徐北辰 · Beichen Xu</title>
-    <meta name="description" content="徐北辰（Beichen Xu）｜非雨（ThisRainIsNotARealRain）创始人/CEO：以 RealRain（AIGC 多 Agent 与数字孪生生产系统）推动动漫内容工业化；方向涵盖 AI4Science、计算机视觉与多模态、Physics ML。" />
+    <meta name="description" content="徐北辰（Beichen Xu）｜非雨（ThisRainIsNotARealRain）创始人/CEO：以 RealRain（AIGC 多Agent 与数字孪生生产系统）推动动漫内容工业化；方向涵盖 AI4Science、计算机视觉与多模态、Physics ML。" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,25 +22,35 @@
                 <span lang="en">Beichen Xu</span>
             </a>
 
-            <nav class="site-nav" aria-label="站点导航 / Site navigation">
-                <ul class="nav-list">
-                    <li><a href="#about"><span lang="zh-CN">关于</span><span lang="en">About</span></a></li>
-                    <li><a href="#education"><span lang="zh-CN">教育</span><span lang="en">Education</span></a></li>
-                    <li><a href="#projects"><span lang="zh-CN">项目</span><span lang="en">Projects</span></a></li>
-                    <li><a href="#experience"><span lang="zh-CN">经历</span><span lang="en">Experience</span></a></li>
-                    <li><a href="#publications"><span lang="zh-CN">论文</span><span lang="en">Publications</span></a></li>
-                    <li><a href="#skills"><span lang="zh-CN">技能</span><span lang="en">Skills</span></a></li>
-                    <li><a href="#contact"><span lang="zh-CN">联系</span><span lang="en">Contact</span></a></li>
-                </ul>
-            </nav>
+            <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="header-drawer" aria-label="打开菜单 / Open menu">
+                <span class="nav-toggle-icon" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                </span>
+                <span lang="zh-CN">菜单</span>
+                <span lang="en">Menu</span>
+            </button>
 
-            <div class="header-actions">
-                <div class="lang-switch">
-                    <button class="lang-btn" type="button" data-set-lang="zh" aria-pressed="true">中</button>
-                    <button class="lang-btn" type="button" data-set-lang="en" aria-pressed="false">EN</button>
+            <div class="header-drawer" id="header-drawer">
+                <nav class="site-nav" aria-label="站点导航 / Site navigation">
+                    <ul class="nav-list">
+                        <li><a href="#about"><span lang="zh-CN">关于</span><span lang="en">About</span></a></li>
+                        <li><a href="#education"><span lang="zh-CN">教育</span><span lang="en">Education</span></a></li>
+                        <li><a href="#projects"><span lang="zh-CN">项目</span><span lang="en">Projects</span></a></li>
+                        <li><a href="#experience"><span lang="zh-CN">经历</span><span lang="en">Experience</span></a></li>
+                        <li><a href="#publications"><span lang="zh-CN">论文</span><span lang="en">Publications</span></a></li>
+                        <li><a href="#skills"><span lang="zh-CN">技能</span><span lang="en">Skills</span></a></li>
+                        <li><a href="#contact"><span lang="zh-CN">联系</span><span lang="en">Contact</span></a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="lang-switch">
+                        <button class="lang-btn" type="button" data-set-lang="zh" aria-pressed="true">中</button>
+                        <button class="lang-btn" type="button" data-set-lang="en" aria-pressed="false">EN</button>
+                    </div>
+                    <a class="btn btn-primary" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">下载简历</a>
+                    <a class="btn btn-primary" href="./BeichenXu/CV.pdf" lang="en">Download CV</a>
                 </div>
-                <a class="btn btn-primary" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">下载简历</a>
-                <a class="btn btn-primary" href="./BeichenXu/CV.pdf" lang="en">Download CV</a>
             </div>
         </div>
     </header>
@@ -59,7 +69,7 @@
                             <span lang="en">Beichen Xu</span>
                         </h1>
                         <p class="lead">
-                            <span lang="zh-CN">非雨（ThisRainIsNotARealRain）创始人/CEO。我们在 RealRain 上以“工业4.0”的理念构建动漫内容生产的数字孪生系统与多 Agent 协作产线，让高质量内容生产成为稳定、可规模化的协作流程。我的技术背景来自 AI4Science、计算机视觉与多模态、Physics ML 与可复现工程化训练流程。</span>
+                            <span lang="zh-CN">非雨（ThisRainIsNotARealRain）创始人/CEO。我们在RealRain上以“工业4.0”的理念构建动漫内容生产的数字孪生系统与多Agent 协作产线，让高质量内容生产成为稳定、可规模化的协作流程。我的技术背景来自 AI4Science、计算机视觉与多模态、Physics ML 与可复现工程化训练流程。</span>
                             <span lang="en">Founder/CEO of ThisRainIsNotARealRain. With RealRain, we’re building an Industry 4.0–inspired digital-twin and multi-agent production system for animation—making high-quality creation a stable, scalable workflow. My background spans AI4Science, computer vision & multimodal learning, physics ML, and reproducible engineering pipelines.</span>
                         </p>
                         <div class="hero-actions">
@@ -136,7 +146,7 @@
                 <h2><span lang="zh-CN">关于</span><span lang="en">About</span></h2>
                 <div class="prose">
                     <p>
-                        <span lang="zh-CN">我现在在创业，担任非雨（ThisRainIsNotARealRain）创始人/CEO。我们面向动漫内容生产的工业化升级，在 RealRain 上构建“可控、可编辑、可协作、可规模化”的 AIGC 多 Agent 生产系统：将传统产线映射为可模拟/回放/调度的数字孪生产线，并用多模态资产管理与一致性控制沉淀长期内容资产。我的工程与研究经验来自计算机视觉/视觉语言与多模态、AI4Science 与 Physics ML，擅长把研究原型推进为可复现、可交付的系统。</span>
+                        <span lang="zh-CN">我现在在创业，担任非雨（ThisRainIsNotARealRain）创始人/CEO。我们面向动漫内容生产的工业化升级，在RealRain上构建“可控、可编辑、可协作、可规模化”的 AIGC 多Agent 生产系统：将传统产线映射为可模拟/回放/调度的数字孪生产线，并用多模态资产管理与一致性控制沉淀长期内容资产。我的工程与研究经验来自计算机视觉/视觉语言与多模态、AI4Science 与 Physics ML，擅长把研究原型推进为可复现、可交付的系统。</span>
                         <span lang="en">I’m currently building ThisRainIsNotARealRain as Founder/CEO. With RealRain, we’re upgrading animation production via a controllable, editable, collaborative, and scalable AIGC multi-agent system: a digital-twin pipeline with simulation/replay/scheduling, plus multimodal asset management and consistency control for long-term content assets. My background spans computer vision/vision-language and multimodal learning, AI4Science, and physics ML—bridging research prototypes into reproducible, shippable systems.</span>
                     </p>
                 </div>
@@ -196,7 +206,7 @@
                             <span lang="en">AeroDiT (Diffusion Transformers for RANS)</span>
                         </h3>
                         <p class="muted">
-                            <span lang="zh-CN">将扩散模型与 Transformer 结合，用于 Reynolds-Averaged Navier–Stokes 空气动力学仿真（翼型流动）。</span>
+                            <span lang="zh-CN">将扩散模型与Transformer结合，用于 Reynolds-Averaged Navier–Stokes 空气动力学仿真（翼型流动）。</span>
                             <span lang="en">Diffusion Transformers for Reynolds-Averaged Navier–Stokes simulations of airfoil flows.</span>
                         </p>
                         <ul class="meta">
@@ -285,7 +295,7 @@
                                 <span lang="en">Building an Industry 4.0–inspired digital-twin system for animation production: a controllable, schedulable human–agent pipeline for consistent, scalable delivery.</span>
                             </li>
                             <li>
-                                <span lang="zh-CN">多 Agent 协作层映射不同基础模型能力，按产线节点分工协作；强调可替换、可升级、边界可控（系统而非玩具）。</span>
+                                <span lang="zh-CN">多Agent 协作层映射不同基础模型能力，按产线节点分工协作；强调可替换、可升级、边界可控（系统而非玩具）。</span>
                                 <span lang="en">Designing a multi-agent orchestration layer that maps to foundation-model capabilities across pipeline stages; modular, swappable, and controllable (system, not a toy).</span>
                             </li>
                             <li>
@@ -309,7 +319,7 @@
                             <li><span lang="zh-CN">计算机视觉/视觉语言方向：构建 VL 与多模态学习流程，面向 GIS 与遥感任务（道路提取、轨迹建模、卫星影像理解）。</span><span lang="en">Computer vision & vision–language: built VL/multimodal pipelines for GIS and remote sensing (road extraction, trajectory modeling, satellite understanding).</span></li>
                             <li><span lang="zh-CN">主导全参微调与 LoRA 轻量适配实验（如 Qwen-VL），提升跨区域/跨模态数据集效率。</span><span lang="en">Led full fine-tuning and LoRA adaptation experiments (e.g., Qwen-VL) to improve efficiency across heterogeneous geospatial datasets.</span></li>
                             <li><span lang="zh-CN">设计地理特征 tokenization 与融合策略（patch、轨迹 embedding、hint maps），支撑分割与推理任务。</span><span lang="en">Designed geospatial feature tokenization and fusion (image patches, trajectory embeddings, hint maps) for segmentation and reasoning.</span></li>
-                            <li><span lang="zh-CN">搭建可复现的多 GPU 训练/评估工作流，优化数据标注对齐与 benchmarking。</span><span lang="en">Built reproducible multi-GPU training/evaluation workflows and improved curation, alignment, and benchmarking.</span></li>
+                            <li><span lang="zh-CN">搭建可复现的多GPU训练/评估工作流，优化数据标注对齐与 benchmarking。</span><span lang="en">Built reproducible multi-GPU training/evaluation workflows and improved curation, alignment, and benchmarking.</span></li>
                             <li><span lang="zh-CN">与产品/工程团队合作，将研究原型落地为生产 pipeline 组件。</span><span lang="en">Collaborated with product/engineering to translate prototypes into deployable components.</span></li>
                         </ul>
                     </a>
@@ -374,7 +384,7 @@
                         <span lang="en">Focus: RealRain AIGC systems / computer vision & multimodal / AI4Science</span>
                     </li>
                     <li>
-                        <span lang="zh-CN">能力：模型研发、数据融合、可复现训练与评估、多 GPU 工作流</span>
+                        <span lang="zh-CN">能力：模型研发、数据融合、可复现训练与评估、多GPU工作流</span>
                         <span lang="en">Strengths: modeling, data fusion, reproducible training & evaluation, multi-GPU workflows</span>
                     </li>
                     <li>
@@ -498,6 +508,7 @@
     <script>
         (() => {
             const root = document.documentElement;
+            root.classList.add('js');
             const zhBtn = document.querySelector('[data-set-lang="zh"]');
             const enBtn = document.querySelector('[data-set-lang="en"]');
 
@@ -517,6 +528,42 @@
 
             zhBtn?.addEventListener('click', () => setLang('zh'));
             enBtn?.addEventListener('click', () => setLang('en'));
+
+            // Mobile nav (progressive enhancement)
+            const navToggle = document.querySelector('[data-nav-toggle]');
+            const drawer = document.getElementById('header-drawer');
+
+            const setNavOpen = (open) => {
+                root.dataset.navOpen = open ? 'true' : 'false';
+                navToggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+                navToggle?.setAttribute('aria-label', open ? '关闭菜单 / Close menu' : '打开菜单 / Open menu');
+            };
+
+            // Default closed on small screens when JS is available
+            setNavOpen(false);
+
+            navToggle?.addEventListener('click', () => {
+                const isOpen = root.dataset.navOpen === 'true';
+                setNavOpen(!isOpen);
+            });
+
+            // Close when a nav link is clicked (mobile)
+            drawer?.addEventListener('click', (e) => {
+                const a = e.target?.closest?.('a');
+                if (a) setNavOpen(false);
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') setNavOpen(false);
+            });
+
+            // If we cross into desktop, ensure drawer state doesn't get stuck
+            const mq = window.matchMedia('(min-width: 48rem)');
+            const onMq = () => {
+                if (mq.matches) setNavOpen(false);
+            };
+            try { mq.addEventListener('change', onMq); } catch { mq.addListener?.(onMq); }
         })();
     </script>
 </body>

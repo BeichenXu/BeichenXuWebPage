@@ -232,6 +232,56 @@ html[data-lang="en"] [lang="zh-CN"] { display: none !important; }
   flex-wrap: wrap;
 }
 
+/* Mobile nav toggle (only visible on small screens) */
+.nav-toggle {
+  appearance: none;
+  border: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0.45rem 0.75rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.nav-toggle:hover {
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.nav-toggle:active {
+  transform: scale(0.98);
+}
+
+.nav-toggle .nav-toggle-icon {
+  width: 18px;
+  height: 14px;
+  display: grid;
+  gap: 3px;
+}
+
+.nav-toggle .nav-toggle-icon span {
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.9;
+}
+
+.header-drawer {
+  display: contents;
+}
+
 /* Segmented language control */
 .lang-switch {
   display: inline-flex;
@@ -765,6 +815,27 @@ h3 {
   .foot-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Mobile CTA layout: clearer, thumb-friendly */
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 40rem) {
@@ -773,10 +844,98 @@ h3 {
   }
 }
 
+/* Mobile-first nav / header layout */
+@media (max-width: 48rem) {
+  .header-inner {
+    flex-wrap: nowrap;
+    padding-block: var(--space-3);
+  }
+
+  .site-nav {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+
+  html.js .nav-toggle {
+    display: inline-flex;
+  }
+
+  /* Progressive enhancement: collapse drawer only when JS is available */
+  html.js .header-drawer {
+    display: none;
+    width: 100%;
+    flex: 0 0 100%;
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--hairline);
+  }
+
+  html.js[data-nav-open="true"] .header-drawer {
+    display: block;
+  }
+
+  html.js .site-nav {
+    margin-bottom: var(--space-3);
+  }
+
+  .nav-list {
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+
+  /* Make mobile nav feel like a soft “panel” under the frosted header */
+  html.js .header-drawer {
+    background: rgba(245, 245, 247, 0.55);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+
+  html.js .nav-list a {
+    min-height: 44px;
+    padding-inline: 0.9rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-color: var(--hairline);
+  }
+
+  html.js .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: var(--space-3);
+  }
+
+  /* Better touch targets on small screens */
+  .btn {
+    min-height: 44px;
+  }
+  .lang-btn {
+    min-height: 36px;
+  }
+}
+
 @media (min-width: 56rem) {
   .hero-layout {
     grid-template-columns: 1.6fr 1fr;
     gap: var(--space-10);
+  }
+}
+
+/* Very small screens (e.g., 320px): reduce density without losing hierarchy */
+@media (max-width: 26rem) {
+  .tile .container {
+    padding: var(--space-5);
+  }
+
+  .facts-panel {
+    padding: var(--space-6);
+  }
+
+  .card {
+    padding: var(--space-4);
+  }
+
+  .timeline-item,
+  .pub {
+    padding: var(--space-5);
   }
 }
 

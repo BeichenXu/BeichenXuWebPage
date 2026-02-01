@@ -70,6 +70,24 @@
       }
     }
 
+    @media (max-width: 40rem) {
+      .detail-shell {
+        padding-block: var(--space-8);
+      }
+
+      .detail-topbar {
+        margin-bottom: var(--space-4);
+      }
+
+      .detail-card {
+        padding: var(--space-6);
+      }
+
+      .detail-side {
+        padding: var(--space-5);
+      }
+    }
+
     .detail-section h2 {
       margin: 0 0 var(--space-3);
       font-size: var(--text-xl);
@@ -274,13 +292,13 @@
           kind: { zh: "项目", en: "Project" },
           title: { zh: "AeroDiT（用于 RANS 的扩散 Transformer）", en: "AeroDiT (Diffusion Transformers for RANS)" },
           subtitle: {
-            zh: "把扩散模型与 Transformer 结合，用于 RANS（Reynolds-Averaged Navier–Stokes）空气动力学仿真，探索更高效、更稳定的生成式预测与重建。",
+            zh: "把扩散模型与Transformer 结合，用于 RANS（Reynolds-Averaged Navier–Stokes）空气动力学仿真，探索更高效、更稳定的生成式预测与重建。",
             en: "Combining diffusion models and Transformers for RANS aerodynamic simulations, exploring efficient and stable generative prediction and reconstruction."
           },
           highlights: {
             zh: [
               "问题：翼型流动等 CFD 场景的高维场预测与重建",
-              "方法：Diffusion + Transformer 的生成式建模框架",
+              "方法：Diffusion +Transformer 的生成式建模框架",
               "目标：在精度、稳定性与推理效率之间取得更优权衡"
             ],
             en: [
@@ -333,7 +351,7 @@
             zh: [
               "统一数据与评估：多数据源、多区域的训练/评测对齐",
               "适配策略：LoRA 与全参微调的对比与效率优化",
-              "工程化：多 GPU 工作流、可复现配置与基准体系"
+              "工程化：多GPU工作流、可复现配置与基准体系"
             ],
             en: [
               "Unified data & eval: alignment across sources/regions for training and benchmarking",
@@ -411,7 +429,7 @@
             zh: [
               "主导全参微调与 LoRA 轻量适配实验（如 Qwen-VL）",
               "设计地理特征 tokenization 与融合策略（patch、轨迹 embedding、hint maps）",
-              "搭建可复现多 GPU 训练/评估工作流，优化数据对齐与 benchmarking"
+              "搭建可复现多GPU训练/评估工作流，优化数据对齐与 benchmarking"
             ],
             en: [
               "Led full fine-tuning and LoRA adaptation experiments (e.g., Qwen-VL)",
@@ -536,18 +554,18 @@
           kind: { zh: "论文", en: "Publication" },
           title: { zh: "AeroDiT: Diffusion Transformers for Reynolds-Averaged Navier-Stokes Simulations of Airfoil Flows", en: "AeroDiT: Diffusion Transformers for Reynolds-Averaged Navier-Stokes Simulations of Airfoil Flows" },
           subtitle: {
-            zh: "围绕 RANS 翼型流动仿真场景，探索 Diffusion Transformer 的建模与推理能力。",
+            zh: "围绕 RANS 翼型流动仿真场景，探索 DiffusionTransformer 的建模与推理能力。",
             en: "Explores Diffusion Transformers for RANS airfoil-flow simulations."
           },
           highlights: {
             zh: [
               "问题：RANS 仿真中的高维流场预测与重建",
-              "方法：扩散模型 + Transformer 的生成式框架",
+              "方法：扩散模型 +Transformer 的生成式框架",
               "目标：更稳定、更高效的仿真近似与推理"
             ],
             en: [
               "Problem: high-dimensional flow-field prediction/reconstruction in RANS",
-              "Method: generative Diffusion + Transformer framework",
+              "Method: generative Diffusion +Transformer framework",
               "Goal: stable and efficient approximation/inference"
             ]
           },
