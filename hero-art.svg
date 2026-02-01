@@ -1,0 +1,47 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F5F7"/>
+    </linearGradient>
+    <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(300 160) rotate(35) scale(520 420)">
+      <stop stop-color="#0077ED" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#0077ED" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(980 220) rotate(140) scale(520 420)">
+      <stop stop-color="#9B59FF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#9B59FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(720 720) rotate(115) scale(620 520)">
+      <stop stop-color="#00C2A8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#00C2A8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="n"/>
+      <feColorMatrix type="matrix" values="
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 .08 0" in="n" result="a"/>
+      <feComposite in="a" in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" rx="56" fill="url(#bg)"/>
+  <g filter="url(#blur)">
+    <path d="M170 330C170 200 290 120 430 140C610 165 650 320 820 340C980 360 1090 260 1120 160V420C1120 560 980 700 780 720C590 740 520 600 370 570C230 540 170 455 170 330Z" fill="url(#g1)"/>
+    <path d="M250 720C180 610 250 450 420 430C600 410 650 520 760 560C890 610 1015 590 1085 520C1135 470 1160 420 1180 360V860H260C260 860 300 780 250 720Z" fill="url(#g3)"/>
+    <path d="M980 120C1090 190 1120 330 1010 420C900 510 760 460 680 410C600 360 560 250 650 160C740 70 880 50 980 120Z" fill="url(#g2)"/>
+  </g>
+
+  <g opacity="0.55">
+    <path d="M110 180H680" stroke="#1D1D1F" stroke-opacity="0.08" stroke-width="2" stroke-linecap="round"/>
+    <path d="M110 230H620" stroke="#1D1D1F" stroke-opacity="0.06" stroke-width="2" stroke-linecap="round"/>
+    <path d="M110 280H560" stroke="#1D1D1F" stroke-opacity="0.05" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#grain)"/>
+</svg>
