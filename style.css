@@ -70,6 +70,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -81,6 +82,7 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 /* Better line-breaking: reduce awkward near-wraps */
@@ -98,7 +100,11 @@ h1, h2, h3, .lead {
 
 /* Utility */
 .nowrap {
-  white-space: nowrap;
+  white-space: normal;
+}
+
+@media (min-width: 52rem) {
+  .nowrap { white-space: nowrap; }
 }
 
 img,
@@ -393,6 +399,7 @@ html[data-lang="en"] [lang="zh-CN"] { display: none !important; }
   padding: var(--space-8);
   box-shadow: var(--shadow-sm);
   min-width: 0;
+  max-width: 100%;
 }
 
 .tile--hero .container {
@@ -509,6 +516,7 @@ h3 {
   font-size: clamp(1.2rem, 1.2vw + 1rem, 1.6rem);
   line-height: 1.15;
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .prose {
@@ -575,18 +583,43 @@ h3 {
 }
 
 /* Cards */
-.grid { display: grid; gap: var(--space-4); }
+.grid { 
+  display: grid; 
+  gap: var(--space-4);
+  min-width: 0;
+  max-width: 100%;
+}
 
 .cards {
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  /*
+    Fixed, responsive column counts.
+    This avoids the "almost fits 4 columns but gap pushes it over" overflow case.
+  */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+@media (max-width: 78rem) {
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 56rem) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 34rem) {
+  .cards { grid-template-columns: 1fr; }
 }
 
 .card {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: var(--space-4);
   background: rgba(255, 255, 255, 0.8);
   min-width: 0;
+  max-width: 100%;
 }
 
 .card-media {
@@ -597,14 +630,19 @@ h3 {
   margin-bottom: var(--space-5);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   /* Taller cover like Apple cards */
-  aspect-ratio: 16 / 10;
-  min-height: clamp(168px, 18vw, 240px);
+  aspect-ratio: 16 / 11;
+  min-height: clamp(140px, 14vw, 210px);
 }
+
+/* Projects grid: slightly tighter so 4-up doesn't overflow */
+.tile--projects .grid { gap: var(--space-3); }
+.tile--projects .card-media { margin-bottom: var(--space-4); }
 
 .card-media img {
   display: block;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
 }
 
