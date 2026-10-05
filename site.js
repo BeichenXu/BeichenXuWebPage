@@ -117,10 +117,12 @@
   window.addEventListener('resize', onScroll);
   update();
 
-  // Phones: a deliberate flick moves exactly one screen. Snapping on its own
+  // Phones: a deliberate swipe moves exactly one screen. Snapping on its own
   // only advances once a flick would carry past half a screen, which on
-  // Android needs a hard throw; here the swipe's direction decides, and the
-  // snap stays as the resistance that settles small, hesitant drags back.
+  // Android needs a hard throw. Here a quick swipe, or a drag past a quarter
+  // of the screen, turns the page; a slow peek settles back, and that snap
+  // is the resistance. Speed is taken over the whole gesture: once a page
+  // scrolls, Chrome sends touchmove only every 200ms or so.
   const phonePaging = window.matchMedia('(max-width: 40rem) and (min-height: 37.5rem)');
   let touch = null;
   window.addEventListener('touchstart', (e) => {
@@ -139,7 +141,7 @@
     const dy = end.clientY - y;
     if (Math.abs(dy) < Math.abs(dx) * 1.2) return; // sideways: the pagers' business
     const speed = Math.abs(dy) / Math.max(performance.now() - t, 1); // px per ms
-    const deliberate = Math.abs(dy) > window.innerHeight * 0.18 || (speed > 0.45 && Math.abs(dy) > 24);
+    const deliberate = Math.abs(dy) > window.innerHeight * 0.25 || (speed > 0.35 && Math.abs(dy) > 24);
     const target = panels[at + (dy < 0 ? 1 : -1)];
     if (deliberate && target) window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
   }, { passive: true });
