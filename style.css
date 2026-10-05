@@ -1363,12 +1363,20 @@ html.motion .is-in .rain {
 
 @media (max-width: 40rem) {
   .panel-inner {
-    gap: clamp(0.9rem, 2.4vh, 1.5rem);
+    gap: clamp(0.8rem, 2.2vh, 1.5rem);
     padding-block: calc(var(--header-h) + clamp(0.5rem, 1.6vh, 1rem)) clamp(1rem, 2.8vh, 1.6rem);
   }
 
   .panel-head {
     padding-bottom: 0.75rem;
+    white-space: nowrap;
+  }
+
+  /* Where the tabs or the title below already say it, the right-hand label
+     steps aside so the head stays on one line */
+  #background .panel-head > .eyebrow + .eyebrow,
+  #research .panel-head > .eyebrow + .eyebrow {
+    display: none;
   }
 
   /* Hero: the name fills the width */
@@ -1410,6 +1418,12 @@ html.motion .is-in .rain {
     margin-top: 0.75rem;
     font-size: 0.875rem;
     line-height: 1.75;
+  }
+
+  /* The first sentence says what RealRain is; the hero and the second card
+     already carry the rest */
+  .sub-more {
+    display: none;
   }
 
   .statement--sm {
@@ -1563,31 +1577,33 @@ html.motion .is-in .rain {
     display: none;
   }
 
+  /* Two lines a row, as a phone list reads: the title, then the dates and
+     one line of detail. The full entry is on the page the row opens. */
   .row {
-    grid-template-columns: minmax(0, 1fr) 1rem;
-    gap: 0.15rem 1rem;
+    grid-template-columns: auto minmax(0, 1fr) 1rem;
+    gap: 0.2rem 0.7rem;
     padding-block: 0.7rem;
   }
 
-  .row-time {
-    grid-column: 1 / -1;
-  }
-
   .row-main {
-    grid-column: 1;
-  }
-
-  .row-arrow {
-    grid-column: 2;
-    grid-row: 2;
+    display: contents;
   }
 
   .row-title {
+    grid-column: 1 / 3;
+    grid-row: 1;
     font-size: 0.9375rem;
+    line-height: 1.4;
   }
 
-  /* One line each; the full line is on the detail page the row opens */
+  .row-time {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
   .row-sub {
+    grid-column: 2;
+    grid-row: 2;
     overflow: hidden;
     font-size: 0.78rem;
     line-height: 1.5;
@@ -1595,13 +1611,34 @@ html.motion .is-in .rain {
     white-space: nowrap;
   }
 
-  /* The publications page has room for the full author list */
+  .row-arrow {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+
+  /* Publications keep the venue above the title and the full author list */
+  .row--pub .row-time {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
+
+  .row--pub .row-title {
+    grid-row: 2;
+  }
+
   .row--pub .row-sub {
+    grid-column: 1 / 3;
+    grid-row: 3;
     white-space: normal;
   }
 
+  .row--pub .row-arrow {
+    grid-row: 1 / 4;
+  }
+
   .minor-grid {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     gap: 1rem;
   }
 
@@ -1686,23 +1723,24 @@ html.motion .is-in .rain {
     gap: 0.65rem 1rem;
   }
 
-  .panel-foot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
+  /* The hero has just said the role; the links are what is left to do */
+  .panel-foot > .eyebrow {
+    display: none;
   }
 }
 
-/* On phones tall enough to hold a screen (every recent iPhone and most
-   Androids), snap one screen per swipe. Shorter phones keep a gentle snap,
-   so a screen that runs long never traps its last lines. */
+/* Snap one screen per swipe on any phone browser window that holds a
+   screen: Safari with its toolbars showing (about 660px on a recent
+   iPhone), Chrome, WeChat. Shorter windows, such as an iPhone SE in
+   Safari, keep a gentle snap so a screen that runs long never traps its
+   last lines. */
 @media (max-width: 40rem) {
   html.home {
     scroll-snap-type: y proximity;
   }
 }
 
-@media (max-width: 40rem) and (min-height: 46rem) {
+@media (max-width: 40rem) and (min-height: 37.5rem) {
   html.home {
     scroll-snap-type: y mandatory;
   }

@@ -121,7 +121,7 @@
   // only advances once a flick would carry past half a screen, which on
   // Android needs a hard throw; here the swipe's direction decides, and the
   // snap stays as the resistance that settles small, hesitant drags back.
-  const phonePaging = window.matchMedia('(max-width: 40rem) and (min-height: 46rem)');
+  const phonePaging = window.matchMedia('(max-width: 40rem) and (min-height: 37.5rem)');
   let touch = null;
   window.addEventListener('touchstart', (e) => {
     touch = null;
