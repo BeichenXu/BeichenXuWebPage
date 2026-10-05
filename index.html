@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-lang="zh" class="home" data-on="ink">
+<html lang="zh-CN" data-lang="zh" class="home" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -26,8 +26,9 @@
             const r = document.documentElement;
             r.classList.add('js');
             if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('motion');
-            let lang = null;
-            try { lang = localStorage.getItem('lang'); } catch { /* ignore */ }
+            let lang = null, theme = null;
+            try { lang = localStorage.getItem('lang'); theme = localStorage.getItem('theme'); } catch { /* ignore */ }
+            r.dataset.theme = theme === 'light' ? 'light' : 'dark';
             if (lang !== 'zh' && lang !== 'en') lang = (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en';
             r.dataset.lang = lang;
             r.lang = lang === 'en' ? 'en' : 'zh-CN';
@@ -89,6 +90,10 @@
                     <a class="menu-mail" href="mailto:beichenxu0249@gmail.com">beichenxu0249@gmail.com</a>
                 </div>
             </div>
+
+            <button class="theme-btn" type="button" data-theme-toggle aria-label="切换为白色 / Switch to light">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg>
+            </button>
         </div>
     </header>
 
@@ -102,7 +107,7 @@
 
     <main id="main-content">
         <!-- Hero -->
-        <section class="panel panel--ink hero" id="hero" data-panel="ink" aria-labelledby="hero-title">
+        <section class="panel hero" id="hero" data-panel aria-labelledby="hero-title">
             <canvas class="rain" data-rain aria-hidden="true"></canvas>
             <div class="panel-inner">
                 <div class="hero-body">
@@ -137,7 +142,7 @@
         </section>
 
         <!-- 01 Company -->
-        <section class="panel panel--paper" id="company" data-panel="paper" aria-labelledby="company-title">
+        <section class="panel" id="company" data-panel aria-labelledby="company-title">
             <div class="panel-inner">
                 <header class="panel-head" data-anim style="--d:0">
                     <h2 class="eyebrow" id="company-title">01 — <span lang="zh-CN">非雨</span><span lang="en">Company</span></h2>
@@ -194,7 +199,7 @@
         </section>
 
         <!-- 02 Background -->
-        <section class="panel panel--ink" id="background" data-panel="ink" aria-labelledby="background-title">
+        <section class="panel" id="background" data-panel aria-labelledby="background-title">
             <div class="panel-inner">
                 <header class="panel-head" data-anim style="--d:0">
                     <h2 class="eyebrow" id="background-title">02 — <span lang="zh-CN">履历</span><span lang="en">Background</span></h2>
@@ -307,7 +312,7 @@
         </section>
 
         <!-- 03 Research -->
-        <section class="panel panel--paper" id="research" data-panel="paper" aria-labelledby="research-title">
+        <section class="panel" id="research" data-panel aria-labelledby="research-title">
             <div class="panel-inner">
                 <header class="panel-head" data-anim style="--d:0">
                     <h2 class="eyebrow" id="research-title">03 — <span lang="zh-CN">研究</span><span lang="en">Research</span></h2>
@@ -377,7 +382,7 @@
         </section>
 
         <!-- 04 Contact -->
-        <section class="panel panel--ink contact" id="contact" data-panel="ink" aria-labelledby="contact-title">
+        <section class="panel contact" id="contact" data-panel aria-labelledby="contact-title">
             <div class="panel-inner">
                 <header class="panel-head" data-anim style="--d:0">
                     <h2 class="eyebrow" id="contact-title">04 — <span lang="zh-CN">联系</span><span lang="en">Contact</span></h2>

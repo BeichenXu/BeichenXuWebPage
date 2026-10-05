@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-lang="zh" data-on="paper">
+<html lang="zh-CN" data-lang="zh" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,8 +12,9 @@
     (() => {
       const r = document.documentElement;
       r.classList.add('js');
-      let lang = null;
-      try { lang = localStorage.getItem('lang'); } catch { /* ignore */ }
+      let lang = null, theme = null;
+      try { lang = localStorage.getItem('lang'); theme = localStorage.getItem('theme'); } catch { /* ignore */ }
+      r.dataset.theme = theme === 'light' ? 'light' : 'dark';
       if (lang !== 'zh' && lang !== 'en') lang = (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en';
       r.dataset.lang = lang;
       r.lang = lang === 'en' ? 'en' : 'zh-CN';
@@ -219,9 +220,14 @@
       <a class="brand" href="index.html">
         <span lang="zh-CN">徐北辰</span><span lang="en">Beichen Xu</span>
       </a>
-      <div class="lang-switch" role="group" aria-label="语言 / Language">
-        <button class="lang-btn" type="button" data-set-lang="zh" aria-pressed="true">中</button>
-        <button class="lang-btn" type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="语言 / Language">
+          <button class="lang-btn" type="button" data-set-lang="zh" aria-pressed="true">中</button>
+          <button class="lang-btn" type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button class="theme-btn" type="button" data-theme-toggle aria-label="切换为白色 / Switch to light">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg>
+        </button>
       </div>
     </div>
   </header>

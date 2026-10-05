@@ -55,43 +55,34 @@
   --radius-lg: 6px;
   --radius-xl: 6px;
   --radius-pill: 999px;
-
-  /* Page-level aliases for the paper detail page */
-  --hairline: var(--paper-line);
-  --border: var(--paper-line);
-  --surface: var(--paper);
-  --surface-2: var(--paper-soft);
-  --text: var(--paper-fg);
-  --text-2: var(--paper-fg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #121211;
-    --paper-fg: #ebeae5;
-    --paper-muted: #8f8d87;
-    --paper-line: rgba(235, 234, 229, 0.13);
-    --paper-soft: rgba(235, 234, 229, 0.045);
-    --ink: #050505;
-  }
-}
-
-/* Each panel sets its own palette; components only read these */
-body,
-.panel--paper {
-  --bg: var(--paper);
-  --fg: var(--paper-fg);
-  --muted: var(--paper-muted);
-  --line: var(--paper-line);
-  --soft: var(--paper-soft);
-}
-
-.panel--ink {
+/* One theme for every screen: dark by default, light when the visitor
+   switches. Components only read --bg, --fg, --muted, --line and --soft. */
+html {
+  color-scheme: dark;
   --bg: var(--ink);
   --fg: var(--ink-fg);
   --muted: var(--ink-muted);
   --line: var(--ink-line);
   --soft: var(--ink-soft);
+
+  /* Aliases used by the detail page */
+  --hairline: var(--line);
+  --border: var(--line);
+  --surface: var(--bg);
+  --surface-2: var(--soft);
+  --text: var(--fg);
+  --text-2: var(--fg);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: var(--paper);
+  --fg: var(--paper-fg);
+  --muted: var(--paper-muted);
+  --line: var(--paper-line);
+  --soft: var(--paper-soft);
 }
 
 /* ==========================================================================
@@ -112,7 +103,7 @@ html {
 
 /* Full-screen panels: snap firmly on desktop, gently on touch screens */
 html.home {
-  background: var(--ink);
+  background: var(--bg);
   scroll-snap-type: y proximity;
 }
 
@@ -128,6 +119,7 @@ html.home {
 
 body {
   margin: 0;
+  transition: background-color 0.6s ease, color 0.6s ease;
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.6;
@@ -250,23 +242,16 @@ html[data-lang="en"] [lang="zh-CN"] { display: none !important; }
    ========================================================================== */
 
 .site-header {
-  --h-fg: var(--ink-fg);
-  --h-muted: var(--ink-muted);
-  --h-line: var(--ink-line);
-  --h-bg: var(--ink);
+  --h-fg: var(--fg);
+  --h-muted: var(--muted);
+  --h-line: var(--line);
+  --h-bg: var(--bg);
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
   height: var(--header-h);
   color: var(--h-fg);
   transition: color 0.5s var(--ease-out);
-}
-
-html[data-on="paper"] .site-header {
-  --h-fg: var(--paper-fg);
-  --h-muted: var(--paper-muted);
-  --h-line: var(--paper-line);
-  --h-bg: var(--paper);
 }
 
 /* Background lives on a pseudo-element so the header never becomes a
@@ -318,6 +303,7 @@ html[data-solid="true"] .site-header::before,
   display: flex;
   align-items: center;
   gap: 3rem;
+  margin-left: auto;
 }
 
 .nav-list {
@@ -409,6 +395,37 @@ html[data-solid="true"] .site-header::before,
   color: var(--h-fg);
 }
 
+/* Black / white switch: a half-filled disc that turns over */
+.theme-btn {
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0 -0.5rem 0 -0.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--h-fg);
+  cursor: pointer;
+}
+
+.theme-btn svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.8s var(--ease-out);
+}
+
+html[data-theme="light"] .theme-btn svg {
+  transform: rotate(180deg);
+}
+
+.header-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
 .menu-btn {
   display: none;
   appearance: none;
@@ -434,8 +451,8 @@ html[data-nav-open="true"] .menu-close {
 
 /* Section index on the right edge */
 .pager {
-  --p-fg: var(--ink-fg);
-  --p-muted: var(--ink-muted);
+  --p-fg: var(--fg);
+  --p-muted: var(--muted);
   position: fixed;
   top: 50%;
   right: 1rem;
@@ -445,11 +462,6 @@ html[data-nav-open="true"] .menu-close {
   align-items: flex-end;
   gap: 0.15rem;
   transform: translateY(-50%);
-}
-
-html[data-on="paper"] .pager {
-  --p-fg: var(--paper-fg);
-  --p-muted: var(--paper-muted);
 }
 
 @media (min-width: 75rem) {
@@ -510,6 +522,7 @@ html[data-on="paper"] .pager {
   min-height: 100svh;
   background: var(--bg);
   color: var(--fg);
+  transition: background-color 0.6s ease, color 0.6s ease;
   scroll-snap-align: start;
   isolation: isolate;
 }
@@ -1221,9 +1234,23 @@ html.motion .is-in .rain {
   }
 
   .brand,
-  .menu-btn {
+  .menu-btn,
+  .theme-btn {
     position: relative;
     z-index: 2;
+  }
+
+  .header-inner {
+    gap: 1rem;
+  }
+
+  .theme-btn {
+    order: 2;
+    margin: 0 0 0 auto;
+  }
+
+  .menu-btn {
+    order: 3;
   }
 
   html:not(.js) .site-menu {
@@ -1239,8 +1266,8 @@ html.motion .is-in .rain {
     justify-content: space-between;
     gap: 2rem;
     padding: calc(var(--header-h) + 2.5rem) var(--gutter) calc(2rem + env(safe-area-inset-bottom, 0px));
-    background: var(--ink);
-    color: var(--ink-fg);
+    background: var(--bg);
+    color: var(--fg);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s var(--ease-out), visibility 0s linear 0.5s;
@@ -1256,12 +1283,6 @@ html.motion .is-in .rain {
     transition: opacity 0.5s var(--ease-out);
   }
 
-  html[data-nav-open="true"] .site-header {
-    --h-fg: var(--ink-fg);
-    --h-muted: var(--ink-muted);
-    --h-line: var(--ink-line);
-  }
-
   html[data-nav-open="true"] .site-header::before {
     opacity: 0;
   }
@@ -1273,7 +1294,7 @@ html.motion .is-in .rain {
 
   .nav-list li {
     overflow: hidden;
-    border-bottom: 1px solid var(--ink-line);
+    border-bottom: 1px solid var(--line);
   }
 
   .nav-list a {
@@ -1283,7 +1304,7 @@ html.motion .is-in .rain {
     font-size: clamp(1.75rem, 8vw, 2.5rem);
     font-weight: 500;
     letter-spacing: -0.02em;
-    color: var(--ink-fg);
+    color: var(--fg);
     transform: translateY(105%);
     transition: transform 0.8s var(--ease-out);
     transition-delay: calc(var(--i, 0) * 60ms + 60ms);
@@ -1299,7 +1320,7 @@ html.motion .is-in .rain {
 
   .nav-num {
     font-size: 0.6875rem;
-    color: var(--ink-muted);
+    color: var(--muted);
     opacity: 1;
   }
 
@@ -1310,7 +1331,7 @@ html.motion .is-in .rain {
   .menu-mail {
     display: inline;
     font-size: 0.8125rem;
-    color: var(--ink-muted);
+    color: var(--muted);
     text-decoration: none;
   }
 

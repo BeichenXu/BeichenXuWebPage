@@ -21,6 +21,20 @@
   setLang(root.dataset.lang === 'en' ? 'en' : 'zh', false);
   langBtns.forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
 
+  // Black / white theme: dark by default, the visitor's choice is remembered
+  const themeBtn = document.querySelector('[data-theme-toggle]');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const setTheme = (theme, persist) => {
+    root.dataset.theme = theme;
+    themeBtn?.setAttribute('aria-label', theme === 'light' ? '切换为黑色 / Switch to dark' : '切换为白色 / Switch to light');
+    const bg = getComputedStyle(root).getPropertyValue('--bg').trim();
+    if (themeMeta && bg) themeMeta.content = bg;
+    if (persist) store.set('theme', theme);
+    document.dispatchEvent(new CustomEvent('themechange', { detail: theme }));
+  };
+  setTheme(root.dataset.theme === 'light' ? 'light' : 'dark', false);
+  themeBtn?.addEventListener('click', () => setTheme(root.dataset.theme === 'light' ? 'dark' : 'light', true));
+
   // Mobile menu sheet
   const menuBtn = document.querySelector('[data-nav-toggle]');
   const menu = document.getElementById('site-menu');
@@ -39,8 +53,7 @@
   const panels = [...document.querySelectorAll('[data-panel]')];
   if (!panels.length) return;
 
-  // Header colour, header backdrop and the active nav/pager item all follow
-  // whichever panel is on screen
+  // Header backdrop and the active nav/pager item follow whichever panel is on screen
   const header = document.querySelector('.site-header');
   const navLinks = [...document.querySelectorAll('.nav-list a[href^="#"], .pager a[href^="#"]')];
   let activeId = null;
@@ -55,7 +68,6 @@
       if (r.top <= probe && r.bottom > probe) under = p;
       if (r.top <= mid && r.bottom > mid) active = p;
     }
-    root.dataset.on = under.dataset.panel;
     root.dataset.solid = under.getBoundingClientRect().top < -2 ? 'true' : 'false';
     if (active.id !== activeId) {
       activeId = active.id;
@@ -176,6 +188,10 @@
     resizeTimer = setTimeout(size, 150);
   });
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  document.addEventListener('themechange', () => {
+    color = getComputedStyle(canvas).color;
+    draw();
+  });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([e]) => {
       inView = e.isIntersecting;
