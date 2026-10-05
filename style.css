@@ -727,8 +727,28 @@ html[data-lang="en"] .hero-name {
    01 Company
    ========================================================================== */
 
-#company .statement {
+#company .company-lede {
   margin-block: auto;
+}
+
+.statement-sub {
+  margin: clamp(1rem, 2.5vh, 1.5rem) 0 0;
+  max-width: 40rem;
+  font-size: 0.9688rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.pillar-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.foot-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
 }
 
 .pillars {
