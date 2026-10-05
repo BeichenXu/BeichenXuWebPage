@@ -1,7 +1,8 @@
 // Shared behaviour for index.html and detail.html.
-// The inline script in <head> has already set data-lang / data-theme before first paint.
+// The inline script in <head> has already set data-lang (and the motion class) before first paint.
 (() => {
   const root = document.documentElement;
+  root.dataset.ready = '1';
 
   const store = {
     get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
@@ -20,71 +21,165 @@
   setLang(root.dataset.lang === 'en' ? 'en' : 'zh', false);
   langBtns.forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
 
-  // Theme: follows the system until the visitor picks one explicitly
-  const darkMq = window.matchMedia('(prefers-color-scheme: dark)');
-  const themeBtn = document.querySelector('[data-theme-toggle]');
-  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : darkMq.matches);
-  const syncTheme = () => {
-    root.dataset.resolvedTheme = isDark() ? 'dark' : 'light';
-    themeBtn?.setAttribute('aria-pressed', String(isDark()));
-  };
-  themeBtn?.addEventListener('click', () => {
-    const next = isDark() ? 'light' : 'dark';
-    root.dataset.theme = next;
-    store.set('theme', next);
-    syncTheme();
-  });
-  try { darkMq.addEventListener('change', syncTheme); } catch { darkMq.addListener?.(syncTheme); }
-  syncTheme();
-
-  // Mobile nav drawer
-  const navToggle = document.querySelector('[data-nav-toggle]');
-  const drawer = document.getElementById('header-drawer');
-  const setNavOpen = (open) => {
+  // Mobile menu sheet
+  const menuBtn = document.querySelector('[data-nav-toggle]');
+  const menu = document.getElementById('site-menu');
+  const setMenu = (open) => {
     root.dataset.navOpen = open ? 'true' : 'false';
-    navToggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
-    navToggle?.setAttribute('aria-label', open ? '关闭菜单 / Close menu' : '打开菜单 / Open menu');
+    menuBtn?.setAttribute('aria-expanded', String(open));
   };
-  setNavOpen(false);
-  navToggle?.addEventListener('click', () => setNavOpen(root.dataset.navOpen !== 'true'));
-  drawer?.addEventListener('click', (e) => { if (e.target?.closest?.('a')) setNavOpen(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNavOpen(false); });
+  setMenu(false);
+  menuBtn?.addEventListener('click', () => setMenu(root.dataset.navOpen !== 'true'));
+  menu?.addEventListener('click', (e) => { if (e.target?.closest?.('a')) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
   const deskMq = window.matchMedia('(min-width: 56rem)');
-  const onDesk = () => { if (deskMq.matches) setNavOpen(false); };
+  const onDesk = () => { if (deskMq.matches) setMenu(false); };
   try { deskMq.addEventListener('change', onDesk); } catch { deskMq.addListener?.(onDesk); }
 
-  // Header shadow once the page has scrolled
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  if (!panels.length) return;
+
+  // Header colour, header backdrop and the active nav/pager item all follow
+  // whichever panel is on screen
   const header = document.querySelector('.site-header');
-  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  const navLinks = [...document.querySelectorAll('.nav-list a[href^="#"], .pager a[href^="#"]')];
+  let activeId = null;
+
+  const update = () => {
+    const probe = (header?.offsetHeight || 64) / 2;
+    const mid = window.innerHeight / 2;
+    let under = panels[0];
+    let active = panels[0];
+    for (const p of panels) {
+      const r = p.getBoundingClientRect();
+      if (r.top <= probe && r.bottom > probe) under = p;
+      if (r.top <= mid && r.bottom > mid) active = p;
+    }
+    root.dataset.on = under.dataset.panel;
+    root.dataset.solid = under.getBoundingClientRect().top < -2 ? 'true' : 'false';
+    if (active.id !== activeId) {
+      activeId = active.id;
+      navLinks.forEach((a) => {
+        if (a.getAttribute('href') === `#${activeId}`) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }
+  };
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { ticking = false; update(); });
+  };
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('resize', onScroll);
+  update();
 
-  if (!('IntersectionObserver' in window)) return;
+  // Each panel plays its entrance once, as it arrives
+  const motion = root.classList.contains('motion');
+  if (motion && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    panels.forEach((p) => io.observe(p));
+  } else {
+    panels.forEach((p) => p.classList.add('is-in'));
+  }
 
-  // Highlight the nav link for the section in view
-  const navLinks = [...document.querySelectorAll('.nav-list a[href^="#"]')];
-  const byId = new Map(navLinks.map((a) => [a.getAttribute('href').slice(1), a]));
-  const navIo = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      navLinks.forEach((a) => a.removeAttribute('aria-current'));
-      byId.get(e.target.id)?.setAttribute('aria-current', 'true');
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  // The hero has no nav link, so reaching it clears the highlight
-  ['hero', ...byId.keys()].forEach((id) => { const s = document.getElementById(id); if (s) navIo.observe(s); });
+  // Hero rain: sparse hairlines drifting down — "this rain is not a real rain"
+  const canvas = document.querySelector('[data-rain]');
+  const ctx = canvas?.getContext?.('2d');
+  if (!ctx) return;
 
-  // Gentle reveal on scroll
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const reveals = document.querySelectorAll('.reveal');
-  if (!reveals.length) return;
-  root.classList.add('reveal-ready');
-  const revealIo = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-visible');
-      revealIo.unobserve(e.target);
-    });
-  }, { rootMargin: '0px 0px -6% 0px' });
-  reveals.forEach((el) => revealIo.observe(el));
+  const SLANT = 0.16;
+  let w = 0;
+  let h = 0;
+  let color = '#fff';
+  let drops = [];
+  let frame = 0;
+  let last = 0;
+  let running = false;
+  let inView = true;
+
+  const spawn = (anywhere) => {
+    const len = 24 + Math.random() * 96;
+    return {
+      x: Math.random() * (w + h * SLANT),
+      y: anywhere ? Math.random() * h : -len - Math.random() * h * 0.4,
+      len,
+      v: 0.05 + Math.random() * 0.13, // px per ms
+      a: 0.05 + Math.random() * 0.2,
+    };
+  };
+
+  const draw = () => {
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    for (const d of drops) {
+      ctx.globalAlpha = d.a;
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x - d.len * SLANT, d.y + d.len);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  };
+
+  const size = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth;
+    h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    color = getComputedStyle(canvas).color;
+    drops = Array.from({ length: Math.round((w * h) / 9000) }, () => spawn(true));
+    draw();
+  };
+
+  const tick = (t) => {
+    const dt = last ? Math.min(t - last, 50) : 16;
+    last = t;
+    for (const d of drops) {
+      d.y += d.v * dt;
+      d.x -= d.v * dt * SLANT;
+      if (d.y > h) Object.assign(d, spawn(false));
+    }
+    draw();
+    frame = requestAnimationFrame(tick);
+  };
+
+  const start = () => {
+    if (running || !motion || !inView || document.hidden) return;
+    running = true;
+    last = 0;
+    frame = requestAnimationFrame(tick);
+  };
+
+  const stop = () => {
+    running = false;
+    cancelAnimationFrame(frame);
+  };
+
+  size();
+  start();
+
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(size, 150);
+  });
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      inView = e.isIntersecting;
+      if (inView) start(); else stop();
+    }).observe(canvas);
+  }
 })();
