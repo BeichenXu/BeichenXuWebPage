@@ -50,6 +50,35 @@
   const onDesk = () => { if (deskMq.matches) setMenu(false); };
   try { deskMq.addEventListener('change', onDesk); } catch { deskMq.addListener?.(onDesk); }
 
+  // Phone pagers: content that would overflow a phone screen sits on
+  // horizontal pages instead. Tabs and dots follow the swipe and jump on tap.
+  const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-pager]').forEach((pager) => {
+    const pages = [...pager.children];
+    const controls = [...document.querySelectorAll(`[data-pager-for="${pager.id}"] [data-page]`)];
+    if (pages.length < 2 || !controls.length) return;
+
+    const sync = () => {
+      const step = pages[1].offsetLeft - pages[0].offsetLeft || pager.clientWidth;
+      const atEnd = pager.scrollLeft >= pager.scrollWidth - pager.clientWidth - 2;
+      const index = atEnd ? pages.length - 1 : Math.round(pager.scrollLeft / step);
+      controls.forEach((c) => c.setAttribute('aria-pressed', String(Number(c.dataset.page) === index)));
+    };
+
+    let queued = false;
+    pager.addEventListener('scroll', () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; sync(); });
+    }, { passive: true });
+
+    controls.forEach((c) => c.addEventListener('click', () => {
+      const page = pages[Number(c.dataset.page)];
+      if (page) pager.scrollTo({ left: page.offsetLeft - pages[0].offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+    }));
+    sync();
+  });
+
   const panels = [...document.querySelectorAll('[data-panel]')];
   if (!panels.length) return;
 
@@ -87,6 +116,33 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   update();
+
+  // Phones: a deliberate flick moves exactly one screen. Snapping on its own
+  // only advances once a flick would carry past half a screen, which on
+  // Android needs a hard throw; here the swipe's direction decides, and the
+  // snap stays as the resistance that settles small, hesitant drags back.
+  const phonePaging = window.matchMedia('(max-width: 40rem) and (min-height: 46rem)');
+  let touch = null;
+  window.addEventListener('touchstart', (e) => {
+    touch = null;
+    if (!smooth || !phonePaging.matches || e.touches.length !== 1 || root.dataset.navOpen === 'true') return;
+    const at = panels.findIndex((p) => Math.abs(p.offsetTop - window.scrollY) < 4);
+    if (at < 0 || panels[at].offsetHeight > window.innerHeight + 2) return;
+    touch = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now(), at };
+  }, { passive: true });
+  window.addEventListener('touchend', (e) => {
+    if (!touch) return;
+    const { x, y, t, at } = touch;
+    touch = null;
+    const end = e.changedTouches[0];
+    const dx = end.clientX - x;
+    const dy = end.clientY - y;
+    if (Math.abs(dy) < Math.abs(dx) * 1.2) return; // sideways: the pagers' business
+    const speed = Math.abs(dy) / Math.max(performance.now() - t, 1); // px per ms
+    const deliberate = Math.abs(dy) > window.innerHeight * 0.18 || (speed > 0.45 && Math.abs(dy) > 24);
+    const target = panels[at + (dy < 0 ? 1 : -1)];
+    if (deliberate && target) window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+  }, { passive: true });
 
   // Each panel plays its entrance once, as it arrives
   const motion = root.classList.contains('motion');

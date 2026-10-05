@@ -160,7 +160,7 @@
                     </p>
                 </div>
 
-                <ol class="pillars">
+                <ol class="pillars" id="pillars" data-pager>
                     <li data-anim style="--d:3">
                         <span class="num">01</span>
                         <h3><span lang="zh-CN">交汇地</span><span lang="en">Crossroads</span></h3>
@@ -187,6 +187,11 @@
                         </p>
                     </li>
                 </ol>
+                <div class="pager-dots" data-pager-for="pillars" aria-hidden="true">
+                    <button type="button" tabindex="-1" data-page="0" aria-pressed="true"></button>
+                    <button type="button" tabindex="-1" data-page="1" aria-pressed="false"></button>
+                    <button type="button" tabindex="-1" data-page="2" aria-pressed="false"></button>
+                </div>
 
                 <footer class="panel-foot" data-anim style="--d:6">
                     <span class="eyebrow"><span lang="zh-CN">创始人 / CEO · 2026 — 至今</span><span lang="en">Founder / CEO · 2026 — Present</span></span>
@@ -206,7 +211,12 @@
                     <span class="eyebrow"><span lang="zh-CN">经历 · 教育 · 荣誉</span><span lang="en">Experience · Education · Awards</span></span>
                 </header>
 
-                <div class="panel-body bg-grid">
+                <div class="pager-tabs" data-pager-for="bg-pages" data-anim style="--d:1">
+                    <button type="button" data-page="0" aria-pressed="true"><span lang="zh-CN">经历</span><span lang="en">Experience</span></button>
+                    <button type="button" data-page="1" aria-pressed="false"><span lang="zh-CN">教育 · 荣誉</span><span lang="en">Education · Awards</span></button>
+                </div>
+
+                <div class="panel-body bg-grid" id="bg-pages" data-pager>
                     <div id="experience">
                         <h3 class="col-title" data-anim style="--d:1"><span lang="zh-CN">经历</span><span lang="en">Experience</span></h3>
                         <ol class="rows">
@@ -325,6 +335,12 @@
                         <p class="research-note"><span lang="zh-CN">此前的研究与工程背景在计算机视觉与多模态、AI4Science 与 Physics ML。</span><span lang="en">My research and engineering background is in computer vision and multimodal learning, AI4Science and physics ML.</span></p>
                     </div>
 
+                    <div class="pager-tabs" data-pager-for="research-pages" data-anim style="--d:2">
+                        <button type="button" data-page="0" aria-pressed="true"><span lang="zh-CN">项目</span><span lang="en">Projects</span></button>
+                        <button type="button" data-page="1" aria-pressed="false"><span lang="zh-CN">论文</span><span lang="en">Publications</span></button>
+                    </div>
+
+                    <div class="pager-pages" id="research-pages" data-pager>
                     <div class="projects" id="projects">
                         <a class="project" href="detail.html?item=project-aerodit" data-anim style="--d:2">
                             <div class="project-media"><img src="./BeichenXu/images/AERO.webp" alt="" width="1200" height="815" loading="lazy" decoding="async"></div>
@@ -376,6 +392,7 @@
                                 </a>
                             </li>
                         </ol>
+                    </div>
                     </div>
                 </div>
             </div>
