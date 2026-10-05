@@ -121,16 +121,31 @@
   // only advances once a flick would carry past half a screen, which on
   // Android needs a hard throw. Here a quick swipe, or a drag past a quarter
   // of the screen, turns the page; a slow peek settles back, and that snap
-  // is the resistance. Speed is taken over the whole gesture: once a page
-  // scrolls, Chrome sends touchmove only every 200ms or so.
+  // is the resistance. Speed is taken over the whole gesture by the touch
+  // events' own clocks: once a page scrolls, Chrome sends touchmove only
+  // every 200ms or so, and a busy page runs handlers late.
   const phonePaging = window.matchMedia('(max-width: 40rem) and (min-height: 37.5rem)');
   let touch = null;
+
+  // While a page turns, snapping steps aside: the browser's own snap,
+  // landing a moment after the finger lifts, would otherwise pull it back
+  const turnTo = (top) => {
+    const started = performance.now();
+    root.style.scrollSnapType = 'none';
+    window.scrollTo({ top, behavior: 'smooth' });
+    const settle = () => {
+      if (Math.abs(window.scrollY - top) < 2 || performance.now() - started > 1500) root.style.scrollSnapType = '';
+      else requestAnimationFrame(settle);
+    };
+    requestAnimationFrame(settle);
+  };
+
   window.addEventListener('touchstart', (e) => {
     touch = null;
     if (!smooth || !phonePaging.matches || e.touches.length !== 1 || root.dataset.navOpen === 'true') return;
     const at = panels.findIndex((p) => Math.abs(p.offsetTop - window.scrollY) < 4);
     if (at < 0 || panels[at].offsetHeight > window.innerHeight + 2) return;
-    touch = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now(), at };
+    touch = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: e.timeStamp, at };
   }, { passive: true });
   window.addEventListener('touchend', (e) => {
     if (!touch) return;
@@ -140,10 +155,10 @@
     const dx = end.clientX - x;
     const dy = end.clientY - y;
     if (Math.abs(dy) < Math.abs(dx) * 1.2) return; // sideways: the pagers' business
-    const speed = Math.abs(dy) / Math.max(performance.now() - t, 1); // px per ms
+    const speed = Math.abs(dy) / Math.max(e.timeStamp - t, 1); // px per ms
     const deliberate = Math.abs(dy) > window.innerHeight * 0.25 || (speed > 0.35 && Math.abs(dy) > 24);
     const target = panels[at + (dy < 0 ? 1 : -1)];
-    if (deliberate && target) window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+    if (deliberate && target) turnTo(target.offsetTop);
   }, { passive: true });
 
   // Each panel plays its entrance once, as it arrives
