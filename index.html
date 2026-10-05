@@ -3,10 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
     <title>徐北辰 · Beichen Xu</title>
     <meta name="description" content="徐北辰（Beichen Xu）｜非雨（ThisRainIsNotARealRain）创始人 / CEO。公司业务为二次元实体与商业化出版，以本体驱动的连续出版组织 IP 的持续开发。此前在 AI4Science 与计算机视觉方向从事研究与工程。" />
+    <meta name="author" content="徐北辰 Beichen Xu">
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="徐北辰 · Beichen Xu">
+    <meta property="og:description" content="非雨（ThisRainIsNotARealRain）创始人 / CEO · 二次元实体与商业化出版 · 此前从事 AI4Science 与计算机视觉研究与工程。">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="profile:first_name" content="Beichen">
+    <meta property="profile:last_name" content="Xu">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
+
+    <script>
+        (() => {
+            const r = document.documentElement;
+            r.classList.add('js');
+            let lang = null, theme = null;
+            try { lang = localStorage.getItem('lang'); theme = localStorage.getItem('theme'); } catch { /* ignore */ }
+            if (lang !== 'zh' && lang !== 'en') lang = (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en';
+            r.dataset.lang = lang;
+            r.lang = lang === 'en' ? 'en' : 'zh-CN';
+            if (theme === 'light' || theme === 'dark') r.dataset.theme = theme;
+        })();
+    </script>
+    <script src="site.js" defer></script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Beichen Xu",
+        "alternateName": "徐北辰",
+        "jobTitle": "Founder & CEO",
+        "worksFor": { "@type": "Organization", "name": "ThisRainIsNotARealRain" },
+        "email": "mailto:beichenxu0249@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Beijing", "addressCountry": "CN" },
+        "alumniOf": [
+            { "@type": "CollegeOrUniversity", "name": "Imperial College London" },
+            { "@type": "CollegeOrUniversity", "name": "University of Birmingham" }
+        ],
+        "sameAs": ["https://github.com/BeichenXu", "https://www.linkedin.com/in/beichenxu/"]
+    }
+    </script>
 </head>
 <body>
     <div id="top"></div>
@@ -18,25 +64,17 @@
     <header class="site-header">
         <div class="container header-inner">
             <a class="brand" href="#top">
-                <span lang="zh-CN">徐北辰</span>
-                <span lang="en">Beichen Xu</span>
+                <span class="brand-mark" aria-hidden="true">徐</span>
+                <span class="brand-name"><span lang="zh-CN">徐北辰</span><span lang="en">Beichen Xu</span></span>
             </a>
-
-            <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="header-drawer" aria-label="打开菜单 / Open menu">
-                <span class="nav-toggle-icon" aria-hidden="true">
-                    <span></span><span></span><span></span>
-                </span>
-                <span lang="zh-CN">菜单</span>
-                <span lang="en">Menu</span>
-            </button>
 
             <div class="header-drawer" id="header-drawer">
                 <nav class="site-nav" aria-label="站点导航 / Site navigation">
                     <ul class="nav-list">
                         <li><a href="#about"><span lang="zh-CN">关于</span><span lang="en">About</span></a></li>
-                        <li><a href="#education"><span lang="zh-CN">教育</span><span lang="en">Education</span></a></li>
-                        <li><a href="#projects"><span lang="zh-CN">项目</span><span lang="en">Projects</span></a></li>
                         <li><a href="#experience"><span lang="zh-CN">经历</span><span lang="en">Experience</span></a></li>
+                        <li><a href="#projects"><span lang="zh-CN">项目</span><span lang="en">Projects</span></a></li>
+                        <li><a href="#education"><span lang="zh-CN">教育</span><span lang="en">Education</span></a></li>
                         <li><a href="#publications"><span lang="zh-CN">论文</span><span lang="en">Publications</span></a></li>
                         <li><a href="#skills"><span lang="zh-CN">技能</span><span lang="en">Skills</span></a></li>
                         <li><a href="#contact"><span lang="zh-CN">联系</span><span lang="en">Contact</span></a></li>
@@ -44,145 +82,380 @@
                 </nav>
 
                 <div class="header-actions">
-                    <div class="lang-switch">
+                    <div class="lang-switch" role="group" aria-label="语言 / Language">
                         <button class="lang-btn" type="button" data-set-lang="zh" aria-pressed="true">中</button>
                         <button class="lang-btn" type="button" data-set-lang="en" aria-pressed="false">EN</button>
                     </div>
-                    <a class="btn btn-primary" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">下载简历</a>
-                    <a class="btn btn-primary" href="./BeichenXu/CV.pdf" lang="en">Download CV</a>
+                    <a class="btn btn-primary btn-sm" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">简历</a>
+                    <a class="btn btn-primary btn-sm" href="./BeichenXu/CV.pdf" lang="en">CV</a>
                 </div>
+            </div>
+
+            <div class="header-tools">
+                <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false" aria-label="深色模式 / Dark mode">
+                    <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                    <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                </button>
+                <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="header-drawer" aria-label="打开菜单 / Open menu">
+                    <span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+                </button>
             </div>
         </div>
     </header>
 
-    <main id="main-content" class="site-main">
-        <section class="tile tile--hero" id="hero">
-            <div class="container">
-                <div class="hero-layout">
-                    <div class="hero-copy">
-                        <p class="kicker">
-                            <span lang="zh-CN">RealRain · 二次元实体与出版 · AI4Science</span>
-                            <span lang="en">RealRain · Anime Goods &amp; Publishing · AI4Science</span>
-                        </p>
-                        <h1 id="hero-title">
-                            <span lang="zh-CN">徐北辰</span>
-                            <span lang="en">Beichen Xu</span>
-                        </h1>
-                        <p class="lead">
-                            <span lang="zh-CN">非雨（ThisRainIsNotARealRain）创始人 / CEO。公司业务为二次元实体与商业化出版，以本体驱动的连续出版为核心方法。此前在 AI4Science 与计算机视觉方向从事研究与工程。</span>
-                            <span lang="en">Founder / CEO of ThisRainIsNotARealRain. The company works in anime physical goods and commercial publishing, built on ontology-driven continuous publishing. Before this I worked in AI4Science and computer vision, in both research and engineering.</span>
-                        </p>
-                        <div class="hero-actions">
-                            <a class="btn btn-primary" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">下载简历</a>
-                            <a class="btn btn-primary" href="./BeichenXu/CV.pdf" lang="en">Download CV</a>
-                            <a class="btn btn-ghost" href="#projects">
-                                <span lang="zh-CN">查看项目</span>
-                                <span lang="en">View projects</span>
+    <main id="main-content">
+        <!-- Hero -->
+        <section class="hero" id="hero" aria-labelledby="hero-title">
+            <div class="container hero-grid">
+                <div class="hero-main">
+                    <p class="status-pill">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        <span lang="zh-CN">开放合作 · 北京海淀</span>
+                        <span lang="en">Open to collaborate · Beijing</span>
+                    </p>
+                    <h1 class="hero-title" id="hero-title">
+                        <span lang="zh-CN">徐北辰</span>
+                        <span lang="en">Beichen Xu</span>
+                    </h1>
+                    <p class="hero-tagline">
+                        <span lang="zh-CN"><span class="grad-text">非雨</span> 创始人 / CEO</span>
+                        <span lang="en">Founder &amp; CEO of <span class="grad-text">ThisRainIsNotARealRain</span></span>
+                    </p>
+                    <p class="lead">
+                        <span lang="zh-CN">公司业务为二次元实体与商业化出版，以本体驱动的连续出版为核心方法。此前在 AI4Science 与计算机视觉方向从事研究与工程。</span>
+                        <span lang="en">The company works in anime physical goods and commercial publishing, built on ontology-driven continuous publishing. Before this I worked in AI4Science and computer vision, in both research and engineering.</span>
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+                            下载简历
+                        </a>
+                        <a class="btn btn-primary" href="./BeichenXu/CV.pdf" lang="en">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+                            Download CV
+                        </a>
+                        <a class="btn btn-secondary" href="#contact">
+                            <span lang="zh-CN">联系我</span>
+                            <span lang="en">Get in touch</span>
+                        </a>
+                        <div class="social-row">
+                            <a class="icon-btn" href="https://github.com/BeichenXu" rel="me" aria-label="GitHub">
+                                <svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                            </a>
+                            <a class="icon-btn" href="https://www.linkedin.com/in/beichenxu/" rel="me" aria-label="LinkedIn">
+                                <svg class="icon icon-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+                            </a>
+                            <a class="icon-btn" href="mailto:beichenxu0249@gmail.com" aria-label="Email">
+                                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
                             </a>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="hero-foot" aria-label="Quick facts">
-                            <div class="foot-grid">
-                                <div class="foot-item">
-                                    <p class="foot-label"><span lang="zh-CN">位置</span><span lang="en">Location</span></p>
-                                    <p class="foot-value"><span lang="zh-CN">北京海淀</span><span lang="en">Haidian, Beijing</span></p>
-                                </div>
-                                <div class="foot-item">
-                                    <p class="foot-label"><span lang="zh-CN">方向</span><span lang="en">Focus</span></p>
-                                    <p class="foot-value"><span lang="zh-CN">二次元实体与出版 · AIGC</span><span lang="en">Anime goods &amp; publishing · AIGC</span></p>
-                                </div>
-                                <div class="foot-item">
-                                    <p class="foot-label"><span lang="zh-CN">工作</span><span lang="en">Role</span></p>
-                                    <p class="foot-value"><span lang="zh-CN">创始人/CEO</span><span lang="en">Founder/CEO</span></p>
-                                </div>
-                            </div>
+                <aside class="profile-card" aria-label="概览 / Snapshot">
+                    <div class="profile-head">
+                        <span class="avatar" aria-hidden="true">徐</span>
+                        <div>
+                            <p class="profile-name">徐北辰 <span class="muted">Beichen Xu</span></p>
+                            <p class="profile-role muted">
+                                <span lang="zh-CN">创始人 / CEO · 非雨</span>
+                                <span lang="en">Founder / CEO · ThisRainIsNotARealRain</span>
+                            </p>
                         </div>
                     </div>
-
-                    <figure class="hero-media" aria-hidden="true">
-                        <img src="./hero-art.svg" alt="" decoding="async" />
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <section class="tile tile--snapshot" id="snapshot" aria-label="Snapshot">
-            <div class="side-stack">
-                <div class="facts-panel">
-                    <h2 class="card-title">
-                        <span lang="zh-CN">概览</span>
-                        <span lang="en">Snapshot</span>
-                    </h2>
-                    <dl class="fact-list">
-                        <div class="fact">
+                    <dl class="profile-facts">
+                        <div>
                             <dt><span lang="zh-CN">方向</span><span lang="en">Focus</span></dt>
                             <dd><span lang="zh-CN">二次元实体与商业化出版 · AIGC 系统 · 计算机视觉与多模态</span><span lang="en">Anime goods &amp; commercial publishing · AIGC systems · Computer vision &amp; multimodal</span></dd>
                         </div>
-                        <div class="fact">
-                            <dt><span lang="zh-CN">状态</span><span lang="en">Availability</span></dt>
-                            <dd>
-                                <span lang="zh-CN">开放合作</span>
-                                <span lang="en">Open to collaborate</span>
-                            </dd>
+                        <div>
+                            <dt><span lang="zh-CN">教育</span><span lang="en">Education</span></dt>
+                            <dd><span lang="zh-CN">帝国理工 MRes · 伯明翰 BSc（一等）</span><span lang="en">Imperial MRes · Birmingham BSc (First)</span></dd>
                         </div>
-                        <div class="fact">
+                        <div>
+                            <dt><span lang="zh-CN">位置</span><span lang="en">Location</span></dt>
+                            <dd><span lang="zh-CN">北京海淀</span><span lang="en">Haidian, Beijing</span></dd>
+                        </div>
+                        <div>
                             <dt><span lang="zh-CN">邮箱</span><span lang="en">Email</span></dt>
                             <dd><a href="mailto:beichenxu0249@gmail.com">beichenxu0249@gmail.com</a></dd>
                         </div>
-                        <div class="fact">
-                            <dt><span lang="zh-CN">电话</span><span lang="en">Phone</span></dt>
-                            <dd class="phones">
-                                <a href="tel:+8618260568009" lang="zh-CN">+86 18260568009</a>
-                                <a href="tel:+4407410915752" lang="en">+44 07410915752</a>
-                            </dd>
-                        </div>
                     </dl>
-                </div>
+                </aside>
             </div>
         </section>
 
-        <section class="tile tile--about" id="about">
-            <div class="container">
-                <h2><span lang="zh-CN">关于</span><span lang="en">About</span></h2>
-                <div class="prose">
-                    <p>
+        <!-- About -->
+        <section class="section" id="about" aria-labelledby="about-title">
+            <div class="container section-grid">
+                <header class="section-head">
+                    <p class="eyebrow">01 / About</p>
+                    <h2 id="about-title"><span lang="zh-CN">关于</span><span lang="en">About</span></h2>
+                </header>
+                <div class="section-body">
+                    <p class="about-text reveal">
                         <span lang="zh-CN">我是非雨（ThisRainIsNotARealRain）的创始人兼 CEO。公司业务为二次元实体与商业化出版，以本体驱动的连续出版组织 IP 的开发节奏。此前的研究与工程背景在计算机视觉与多模态、AI4Science 与 Physics ML。</span>
                         <span lang="en">I’m the Founder and CEO of ThisRainIsNotARealRain. The company works in anime physical goods and commercial publishing, using ontology-driven continuous publishing to structure how an IP is developed. My research and engineering background is in computer vision and multimodal learning, AI4Science and physics ML.</span>
                     </p>
+                    <div class="feature-grid">
+                        <div class="feature reveal">
+                            <p class="feature-label"><span lang="zh-CN">方向</span><span lang="en">Focus</span></p>
+                            <p><span lang="zh-CN">二次元实体与商业化出版 / AIGC 系统 / 计算机视觉与多模态</span><span lang="en">Anime goods &amp; commercial publishing / AIGC systems / computer vision &amp; multimodal</span></p>
+                        </div>
+                        <div class="feature reveal">
+                            <p class="feature-label"><span lang="zh-CN">能力</span><span lang="en">Strengths</span></p>
+                            <p><span lang="zh-CN">模型研发、数据融合、可复现训练与评估、多GPU工作流</span><span lang="en">Modeling, data fusion, reproducible training &amp; evaluation, multi-GPU workflows</span></p>
+                        </div>
+                        <div class="feature reveal">
+                            <p class="feature-label"><span lang="zh-CN">合作</span><span lang="en">Collaboration</span></p>
+                            <p><span lang="zh-CN">跨学科协作，把原型推进到可交付组件</span><span lang="en">Cross-functional work from prototype to deployable components</span></p>
+                        </div>
+                    </div>
+                    <ul class="chips reveal" aria-label="关键词 / Keywords">
+                        <li>Transformers</li>
+                        <li><span lang="zh-CN">扩散模型</span><span lang="en">Diffusion</span></li>
+                        <li>GNN</li>
+                        <li>LoRA</li>
+                        <li>PyTorch</li>
+                        <li>AI4Science</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section class="tile tile--education" id="education">
-            <div class="container">
-                <h2><span lang="zh-CN">教育</span><span lang="en">Education</span></h2>
-                <div class="grid cards">
-                    <a class="card card-link" href="detail.html?item=education-imperial-mres">
+        <!-- Experience -->
+        <section class="section" id="experience" aria-labelledby="experience-title">
+            <div class="container section-grid">
+                <header class="section-head">
+                    <p class="eyebrow">02 / Experience</p>
+                    <h2 id="experience-title"><span lang="zh-CN">经历</span><span lang="en">Experience</span></h2>
+                </header>
+                <ol class="timeline section-body">
+                    <li class="reveal">
+                        <a class="tl-item" href="detail.html?item=experience-thisrain-founder">
+                            <p class="tl-time"><time datetime="2026-01">2026</time> — <span lang="zh-CN">至今</span><span lang="en">Present</span></p>
+                            <div class="tl-body">
+                                <h3 class="tl-role"><span lang="zh-CN">创始人 / CEO</span><span lang="en">Founder / CEO</span></h3>
+                                <p class="tl-org"><span lang="zh-CN">非雨</span> ThisRainIsNotARealRain</p>
+                                <ul class="bullets">
+                                    <li>
+                                        <span lang="zh-CN">二次元实体：覆盖从设计落地到生产与履约的全部环节，以实际销量评估 IP 的商业潜力。</span>
+                                        <span lang="en">Anime physical goods: the full chain from product design through production and fulfillment, with actual sales assessing an IP’s commercial potential.</span>
+                                    </li>
+                                    <li>
+                                        <span lang="zh-CN">商业化出版：经验证的 IP 推进至品牌授权，按品类与地区分别签约，构成公司主要收入。</span>
+                                        <span lang="en">Commercial publishing: validated IP moves into brand licensing, signed separately by category and region — the company’s primary revenue line.</span>
+                                    </li>
+                                    <li>
+                                        <span lang="zh-CN">自研 RainStudio 与 RainHub，分别支撑内容开发与创作者社区、周边履约；设定与授权记录集中管理，新项目可直接复用。</span>
+                                        <span lang="en">Built RainStudio and RainHub in-house, covering content development and the creator community and merch fulfillment respectively, with settings and licensing records managed centrally for reuse across projects.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="reveal">
+                        <a class="tl-item" href="detail.html?item=experience-maptech-ai-engineer">
+                            <p class="tl-time"><time datetime="2025-01">2025</time> — <time datetime="2026-01">2026</time></p>
+                            <div class="tl-body">
+                                <h3 class="tl-role"><span lang="zh-CN">AI 算法工程师</span><span lang="en">AI Algorithm Engineer</span></h3>
+                                <p class="tl-org">MapTech · <span lang="zh-CN">北京</span><span lang="en">Beijing</span></p>
+                                <ul class="bullets">
+                                    <li><span lang="zh-CN">计算机视觉/视觉语言方向：构建 VL 与多模态学习流程，面向 GIS 与遥感任务（道路提取、轨迹建模、卫星影像理解）。</span><span lang="en">Computer vision &amp; vision–language: built VL/multimodal pipelines for GIS and remote sensing (road extraction, trajectory modeling, satellite understanding).</span></li>
+                                    <li><span lang="zh-CN">主导全参微调与 LoRA 轻量适配实验（如 Qwen-VL），提升跨区域/跨模态数据集效率。</span><span lang="en">Led full fine-tuning and LoRA adaptation experiments (e.g., Qwen-VL) to improve efficiency across heterogeneous geospatial datasets.</span></li>
+                                    <li><span lang="zh-CN">设计地理特征 tokenization 与融合策略（patch、轨迹 embedding、hint maps），支撑分割与推理任务。</span><span lang="en">Designed geospatial feature tokenization and fusion (image patches, trajectory embeddings, hint maps) for segmentation and reasoning.</span></li>
+                                    <li><span lang="zh-CN">搭建可复现的多GPU训练/评估工作流，优化数据标注对齐与 benchmarking。</span><span lang="en">Built reproducible multi-GPU training/evaluation workflows and improved curation, alignment, and benchmarking.</span></li>
+                                    <li><span lang="zh-CN">与产品/工程团队合作，将研究原型落地为生产 pipeline 组件。</span><span lang="en">Collaborated with product/engineering to translate prototypes into deployable components.</span></li>
+                                </ul>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="reveal">
+                        <a class="tl-item" href="detail.html?item=experience-science42-researcher">
+                            <p class="tl-time"><time datetime="2025">2025</time></p>
+                            <div class="tl-body">
+                                <h3 class="tl-role"><span lang="zh-CN">AI 算法研究员</span><span lang="en">AI Algorithm Researcher</span></h3>
+                                <p class="tl-org">Science42.tech · <span lang="zh-CN">北京</span><span lang="en">Beijing</span></p>
+                                <ul class="bullets">
+                                    <li><span lang="zh-CN">研究 Transformers / Diffusion / GNN 在流体、医学与能源等科学场景的应用。</span><span lang="en">Researched Transformers/Diffusion/GNNs for scientific domains including fluids, biomedicine, and energy systems.</span></li>
+                                    <li><span lang="zh-CN">与清华大学、西湖大学、IMEC（比利时）等团队保持学术合作与交流。</span><span lang="en">Maintained close collaborations with Tsinghua, Westlake University, and IMEC (Belgium) through joint studies and exchanges.</span></li>
+                                    <li><span lang="zh-CN">开发 physics-informed AI 模型并推动高质量论文产出（投稿至《Physics of Fluids》等）。</span><span lang="en">Developed physics-informed AI models and contributed to high-quality publications (e.g., submissions to Physics of Fluids).</span></li>
+                                    <li><span lang="zh-CN">与跨学科团队协作研究代码与流程，并指导实习生完成科研与技术任务。</span><span lang="en">Worked with interdisciplinary teams on research pipelines and mentored interns on technical/research tasks.</span></li>
+                                </ul>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="reveal">
+                        <a class="tl-item" href="detail.html?item=experience-kavli-intern">
+                            <p class="tl-time"><time datetime="2022-06">2022</time></p>
+                            <div class="tl-body">
+                                <h3 class="tl-role"><span lang="zh-CN">暑期实习</span><span lang="en">Summer Intern</span></h3>
+                                <p class="tl-org">Kavli Institute for Cosmology · <span lang="zh-CN">剑桥</span><span lang="en">Cambridge</span></p>
+                                <ul class="bullets">
+                                    <li><span lang="zh-CN">研究 ML 增强的 Bayesian inference：使用 nested sampling 训练宇宙学数据，并用 masked aggressive flow 生成后验。</span><span lang="en">Worked on ML-enhanced Bayesian inference for cosmology: nested sampling + masked aggressive flow for posterior generation.</span></li>
+                                    <li><span lang="zh-CN">参与开源 Python 包 “margarine” 的贡献与协作。</span><span lang="en">Contributed to the “margarine” Python package on GitHub.</span></li>
+                                </ul>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="reveal">
+                        <a class="tl-item" href="detail.html?item=experience-purple-mountain-intern">
+                            <p class="tl-time"><time datetime="2021-06">2021</time></p>
+                            <div class="tl-body">
+                                <h3 class="tl-role"><span lang="zh-CN">暑期实习</span><span lang="en">Summer Intern</span></h3>
+                                <p class="tl-org"><span lang="zh-CN">紫金山天文台 · 南京</span><span lang="en">Purple Mountain Observatory · Nanjing</span></p>
+                                <ul class="bullets">
+                                    <li><span lang="zh-CN">对 GRB 现象做系统性综述；用 Python 对 Swift GRB 数据进行拟合与分析。</span><span lang="en">Reviewed GRB literature and analyzed Swift GRB data with Python (fitting and statistical analysis).</span></li>
+                                    <li><span lang="zh-CN">使用统计方法改进参数估计，熟悉 iminuit 的最小化与误差分析流程。</span><span lang="en">Applied statistical methods for parameter estimation; used iminuit for minimization and uncertainty analysis.</span></li>
+                                </ul>
+                            </div>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="section" id="projects" aria-labelledby="projects-title">
+            <div class="container section-grid">
+                <header class="section-head">
+                    <p class="eyebrow">03 / Projects</p>
+                    <h2 id="projects-title"><span lang="zh-CN">项目</span><span lang="en">Projects</span></h2>
+                </header>
+                <div class="project-grid section-body">
+                    <a class="project-card reveal" href="detail.html?item=project-aerodit">
+                        <div class="project-media">
+                            <img src="./BeichenXu/images/AERO.webp" alt="" width="1200" height="815" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">
+                                <span lang="zh-CN">AeroDiT（用于 RANS 的扩散 Transformer）</span>
+                                <span lang="en">AeroDiT (Diffusion Transformers for RANS)</span>
+                                <svg class="icon arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                            </h3>
+                            <p class="muted">
+                                <span lang="zh-CN">将扩散模型与 Transformer 结合，用于 Reynolds-Averaged Navier–Stokes 空气动力学仿真（翼型流动）。</span>
+                                <span lang="en">Diffusion Transformers for Reynolds-Averaged Navier–Stokes simulations of airfoil flows.</span>
+                            </p>
+                            <ul class="chips chips-sm">
+                                <li><span lang="zh-CN">扩散模型</span><span lang="en">Diffusion</span></li>
+                                <li>Transformers</li>
+                                <li><span lang="zh-CN">流体力学</span><span lang="en">Fluid Dynamics</span></li>
+                            </ul>
+                        </div>
+                    </a>
+
+                    <a class="project-card reveal" href="detail.html?item=project-gravitational-wave-wgan">
+                        <div class="project-media">
+                            <img src="./BeichenXu/images/LISA.webp" alt="" width="500" height="333" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">
+                                <span lang="zh-CN">MRes 项目 · 引力波 WGAN</span>
+                                <span lang="en">MRes Project · Gravitational Wave WGAN</span>
+                                <svg class="icon arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                            </h3>
+                            <p class="muted">
+                                <span lang="zh-CN">模拟多源引力波时序信号，训练 WGAN 以从信号中重建参数；使用 HPC 进行训练与可视化分析。</span>
+                                <span lang="en">Simulated multi-source gravitational-wave time series and trained WGANs to reconstruct parameters; trained and analyzed on HPC.</span>
+                            </p>
+                            <ul class="chips chips-sm">
+                                <li>PyTorch</li>
+                                <li>PyTorch Lightning</li>
+                                <li><span lang="zh-CN">高性能计算</span><span lang="en">HPC</span></li>
+                            </ul>
+                        </div>
+                    </a>
+
+                    <a class="project-card reveal" href="detail.html?item=project-gis-remote-sensing-pipelines">
+                        <div class="project-media">
+                            <img src="./BeichenXu/images/GIS.webp" alt="" width="1200" height="600" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">
+                                <span lang="zh-CN">多模态 GIS / 遥感训练流程</span>
+                                <span lang="en">Multimodal GIS / Remote Sensing Pipelines</span>
+                                <svg class="icon arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                            </h3>
+                            <p class="muted">
+                                <span lang="zh-CN">面向大规模地理遥感任务（道路提取、轨迹建模、卫星影像理解）构建 VL/多模态训练与评估流程，包含 LoRA 与全参微调实验。</span>
+                                <span lang="en">Built vision–language / multimodal pipelines for large-scale GIS and remote sensing tasks (road extraction, trajectory modeling, satellite understanding), including LoRA and full fine-tuning experiments.</span>
+                            </p>
+                            <ul class="chips chips-sm">
+                                <li><span lang="zh-CN">视觉语言</span><span lang="en">Vision–Language</span></li>
+                                <li>LoRA</li>
+                                <li><span lang="zh-CN">多 GPU</span><span lang="en">Multi-GPU</span></li>
+                            </ul>
+                        </div>
+                    </a>
+
+                    <a class="project-card reveal" href="detail.html?item=project-ml-enhanced-bayesian-inference">
+                        <div class="project-media project-media--light">
+                            <img src="./BeichenXu/images/bayesian.webp" alt="" width="1200" height="702" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="project-body">
+                            <h3 class="project-title">
+                                <span lang="zh-CN">机器学习增强的贝叶斯推断（嵌套采样）</span>
+                                <span lang="en">ML-enhanced Bayesian Inference (Nested Sampling)</span>
+                                <svg class="icon arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                            </h3>
+                            <p class="muted">
+                                <span lang="zh-CN">在宇宙学推断中结合嵌套采样与机器学习（masked aggressive flow），用于后验分布生成与参数估计；并参与维护开源 Python 包。</span>
+                                <span lang="en">ML-enhanced Bayesian inference for cosmology: nested sampling + masked aggressive flow for posterior generation and parameter inference; contributed to an open-source Python package.</span>
+                            </p>
+                            <ul class="chips chips-sm">
+                                <li><span lang="zh-CN">贝叶斯</span><span lang="en">Bayesian</span></li>
+                                <li><span lang="zh-CN">嵌套采样</span><span lang="en">Nested Sampling</span></li>
+                                <li>Python</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section" id="education" aria-labelledby="education-title">
+            <div class="container section-grid">
+                <header class="section-head">
+                    <p class="eyebrow">04 / Education</p>
+                    <h2 id="education-title"><span lang="zh-CN">教育</span><span lang="en">Education</span></h2>
+                </header>
+                <div class="edu-grid section-body">
+                    <a class="card card-link reveal" href="detail.html?item=education-imperial-mres">
+                        <div class="card-top">
+                            <span class="badge">MRes</span>
+                            <span class="card-date">2023 — 2024</span>
+                        </div>
                         <h3 class="card-title">
-                            <span lang="zh-CN">帝国理工学院 · MRes</span>
-                            <span lang="en">Imperial College London · MRes</span>
+                            <span lang="zh-CN">帝国理工学院</span>
+                            <span lang="en">Imperial College London</span>
                         </h3>
                         <p class="muted">
-                            <span lang="zh-CN">Machine Learning and Big Data in the Physical Sciences（2023–2024，物理系）</span>
-                            <span lang="en">MRes in Machine Learning and Big Data in the Physical Sciences (2023–2024, Department of Physics)</span>
+                            <span lang="zh-CN">Machine Learning and Big Data in the Physical Sciences · 物理系</span>
+                            <span lang="en">Machine Learning and Big Data in the Physical Sciences · Department of Physics</span>
                         </p>
-                        <ul class="meta">
+                        <ul class="chips chips-sm">
                             <li><span lang="zh-CN">时间序列</span><span lang="en">Time Series</span></li>
                             <li><span lang="zh-CN">加速数据处理</span><span lang="en">Accelerated Data Processing</span></li>
                             <li>FPGA</li>
                             <li><span lang="zh-CN">宇宙学</span><span lang="en">Cosmology</span></li>
                         </ul>
                     </a>
-                    <a class="card card-link" href="detail.html?item=education-birmingham-bsc">
+                    <a class="card card-link reveal" href="detail.html?item=education-birmingham-bsc">
+                        <div class="card-top">
+                            <span class="badge">BSc</span>
+                            <span class="card-date">2020 — 2023</span>
+                        </div>
                         <h3 class="card-title">
-                            <span lang="zh-CN">伯明翰大学 · BSc</span>
-                            <span lang="en">University of Birmingham · BSc</span>
+                            <span lang="zh-CN">伯明翰大学</span>
+                            <span lang="en">University of Birmingham</span>
                         </h3>
                         <p class="muted">
-                            <span lang="zh-CN">Physics（2020–2023，一等荣誉）</span>
-                            <span lang="en">BSc in Physics (2020–2023, First Class Honours)</span>
+                            <span lang="zh-CN">Physics · 一等荣誉</span>
+                            <span lang="en">Physics · First Class Honours</span>
                         </p>
-                        <ul class="meta">
+                        <ul class="chips chips-sm">
                             <li><span lang="zh-CN">统计学</span><span lang="en">Statistics</span></li>
                             <li><span lang="zh-CN">相对论</span><span lang="en">Relativity</span></li>
                             <li><span lang="zh-CN">量子力学</span><span lang="en">Quantum Mechanics</span></li>
@@ -193,378 +466,111 @@
             </div>
         </section>
 
-        <section class="tile tile--projects" id="projects">
-            <div class="container">
-                <h2><span lang="zh-CN">项目</span><span lang="en">Projects</span></h2>
-                <div class="grid cards">
-                    <a class="card card-link" href="detail.html?item=project-aerodit">
-                        <div class="card-media" aria-hidden="true">
-                            <img src="./BeichenXu/images/AERO.webp" alt="" width="1200" height="815" loading="lazy" decoding="async" />
-                        </div>
-                        <h3 class="card-title">
-                            <span lang="zh-CN">AeroDiT（用于 RANS 的扩散 Transformer）</span>
-                            <span lang="en">AeroDiT (Diffusion Transformers for RANS)</span>
-                        </h3>
-                        <p class="muted">
-                            <span lang="zh-CN">将扩散模型与Transformer结合，用于 Reynolds-Averaged Navier–Stokes 空气动力学仿真（翼型流动）。</span>
-                            <span lang="en">Diffusion Transformers for Reynolds-Averaged Navier–Stokes simulations of airfoil flows.</span>
-                        </p>
-                        <ul class="meta">
-                            <li><span lang="zh-CN">扩散模型</span><span lang="en">Diffusion</span></li>
-                            <li><span lang="zh-CN">Transformer</span><span lang="en">Transformers</span></li>
-                            <li><span lang="zh-CN">流体力学</span><span lang="en">Fluid Dynamics</span></li>
-                        </ul>
-                    </a>
-
-                    <a class="card card-link" href="detail.html?item=project-gravitational-wave-wgan">
-                        <div class="card-media" aria-hidden="true">
-                            <img src="./BeichenXu/images/LISA.webp" alt="" width="500" height="333" loading="lazy" decoding="async" />
-                        </div>
-                        <h3 class="card-title">
-                            <span lang="zh-CN">MRes 项目 · 引力波 WGAN</span>
-                            <span lang="en">MRes Project · Gravitational Wave WGAN</span>
-                        </h3>
-                        <p class="muted">
-                            <span lang="zh-CN">模拟多源引力波时序信号，训练 WGAN 以从信号中重建参数；使用 HPC 进行训练与可视化分析。</span>
-                            <span lang="en">Simulated multi-source gravitational-wave time series and trained WGANs to reconstruct parameters; trained and analyzed on HPC.</span>
-                        </p>
-                        <ul class="meta">
-                            <li>PyTorch</li>
-                            <li>PyTorch Lightning</li>
-                            <li><span lang="zh-CN">高性能计算</span><span lang="en">HPC</span></li>
-                        </ul>
-                    </a>
-
-                    <a class="card card-link" href="detail.html?item=project-gis-remote-sensing-pipelines">
-                        <div class="card-media" aria-hidden="true">
-                            <img src="./BeichenXu/images/GIS.webp" alt="" width="1200" height="600" loading="lazy" decoding="async" />
-                        </div>
-                        <h3 class="card-title">
-                            <span lang="zh-CN">多模态 GIS / 遥感训练流程</span>
-                            <span lang="en">Multimodal GIS / Remote Sensing Pipelines</span>
-                        </h3>
-                        <p class="muted">
-                            <span lang="zh-CN">面向大规模地理遥感任务（道路提取、轨迹建模、卫星影像理解）构建 VL/多模态训练与评估流程，包含 LoRA 与全参微调实验。</span>
-                            <span lang="en">Built vision–language / multimodal pipelines for large-scale GIS and remote sensing tasks (road extraction, trajectory modeling, satellite understanding), including LoRA and full fine-tuning experiments.</span>
-                        </p>
-                        <ul class="meta">
-                            <li><span lang="zh-CN">视觉语言</span><span lang="en">Vision–Language</span></li>
-                            <li>LoRA</li>
-                            <li><span lang="zh-CN">多 GPU</span><span lang="en">Multi-GPU</span></li>
-                        </ul>
-                    </a>
-
-                    <a class="card card-link" href="detail.html?item=project-ml-enhanced-bayesian-inference">
-                        <div class="card-media" aria-hidden="true">
-                            <img src="./BeichenXu/images/bayesian.webp" alt="" width="1200" height="702" loading="lazy" decoding="async" />
-                        </div>
-                        <h3 class="card-title">
-                            <span lang="zh-CN">机器学习增强的贝叶斯推断（嵌套采样）</span>
-                            <span lang="en">ML-enhanced Bayesian Inference (Nested Sampling)</span>
-                        </h3>
-                        <p class="muted">
-                            <span lang="zh-CN">在宇宙学推断中结合嵌套采样与机器学习（masked aggressive flow），用于后验分布生成与参数估计；并参与维护开源 Python 包。</span>
-                            <span lang="en">ML-enhanced Bayesian inference for cosmology: nested sampling + masked aggressive flow for posterior generation and parameter inference; contributed to an open-source Python package.</span>
-                        </p>
-                        <ul class="meta">
-                            <li><span lang="zh-CN">贝叶斯</span><span lang="en">Bayesian</span></li>
-                            <li><span lang="zh-CN">嵌套采样</span><span lang="en">Nested Sampling</span></li>
-                            <li>Python</li>
-                        </ul>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="tile tile--experience" id="experience">
-            <div class="container">
-                <h2><span lang="zh-CN">经历</span><span lang="en">Experience</span></h2>
-                <ol class="timeline">
-                    <li>
-                    <a class="timeline-item timeline-link" href="detail.html?item=experience-thisrain-founder">
-                        <div class="timeline-head">
-                            <h3 class="timeline-title">
-                                <span lang="zh-CN">创始人 / CEO · 非雨（AIGC 创业）</span>
-                                <span lang="en">Founder / CEO · ThisRainIsNotARealRain (AIGC startup)</span>
-                            </h3>
-                            <p class="timeline-time"><time datetime="2026-01">2026</time> — <span lang="zh-CN">至今</span><span lang="en">Present</span></p>
-                        </div>
-                        <ul class="bullets muted">
-                            <li>
-                                <span lang="zh-CN">二次元实体：覆盖从设计落地到生产与履约的全部环节，以实际销量评估 IP 的商业潜力。</span>
-                                <span lang="en">Anime physical goods: the full chain from product design through production and fulfillment, with actual sales assessing an IP’s commercial potential.</span>
-                            </li>
-                            <li>
-                                <span lang="zh-CN">商业化出版：经验证的 IP 推进至品牌授权，按品类与地区分别签约，构成公司主要收入。</span>
-                                <span lang="en">Commercial publishing: validated IP moves into brand licensing, signed separately by category and region — the company’s primary revenue line.</span>
-                            </li>
-                            <li>
-                                <span lang="zh-CN">自研 RainStudio 与 RainHub，分别支撑内容开发与创作者社区、周边履约；设定与授权记录集中管理，新项目可直接复用。</span>
-                                <span lang="en">Built RainStudio and RainHub in-house, covering content development and the creator community and merch fulfillment respectively, with settings and licensing records managed centrally for reuse across projects.</span>
-                            </li>
-                        </ul>
-                    </a>
+        <!-- Publications -->
+        <section class="section" id="publications" aria-labelledby="publications-title">
+            <div class="container section-grid">
+                <header class="section-head">
+                    <p class="eyebrow">05 / Publications</p>
+                    <h2 id="publications-title"><span lang="zh-CN">论文</span><span lang="en">Publications</span></h2>
+                </header>
+                <ol class="pubs section-body">
+                    <li class="reveal">
+                        <a class="pub" href="detail.html?item=publication-aerodit-paper">
+                            <p class="pub-title">AeroDiT: Diffusion Transformers for Reynolds-Averaged Navier-Stokes Simulations of Airfoil Flows</p>
+                            <p class="pub-authors"><strong>Beichen Xu</strong>, Yuhao Ma, Biyue Pan, Hao Zheng, Zhibo Dai, Chunyang Wang, Hui Xiang, Dixia Fan</p>
+                            <ul class="chips chips-sm"><li>Diffusion</li><li>Transformers</li><li>CFD</li></ul>
+                        </a>
                     </li>
-
-                    <li>
-                    <a class="timeline-item timeline-link" href="detail.html?item=experience-maptech-ai-engineer">
-                        <div class="timeline-head">
-                            <h3 class="timeline-title">
-                                <span lang="zh-CN">AI 算法工程师 · MapTech（北京）</span>
-                                <span lang="en">AI Algorithm Engineer · MapTech (Beijing)</span>
-                            </h3>
-                            <p class="timeline-time"><time datetime="2025-01">2025</time> — <time datetime="2026-01">2026</time></p>
-                        </div>
-                        <ul class="bullets muted">
-                            <li><span lang="zh-CN">计算机视觉/视觉语言方向：构建 VL 与多模态学习流程，面向 GIS 与遥感任务（道路提取、轨迹建模、卫星影像理解）。</span><span lang="en">Computer vision & vision–language: built VL/multimodal pipelines for GIS and remote sensing (road extraction, trajectory modeling, satellite understanding).</span></li>
-                            <li><span lang="zh-CN">主导全参微调与 LoRA 轻量适配实验（如 Qwen-VL），提升跨区域/跨模态数据集效率。</span><span lang="en">Led full fine-tuning and LoRA adaptation experiments (e.g., Qwen-VL) to improve efficiency across heterogeneous geospatial datasets.</span></li>
-                            <li><span lang="zh-CN">设计地理特征 tokenization 与融合策略（patch、轨迹 embedding、hint maps），支撑分割与推理任务。</span><span lang="en">Designed geospatial feature tokenization and fusion (image patches, trajectory embeddings, hint maps) for segmentation and reasoning.</span></li>
-                            <li><span lang="zh-CN">搭建可复现的多GPU训练/评估工作流，优化数据标注对齐与 benchmarking。</span><span lang="en">Built reproducible multi-GPU training/evaluation workflows and improved curation, alignment, and benchmarking.</span></li>
-                            <li><span lang="zh-CN">与产品/工程团队合作，将研究原型落地为生产 pipeline 组件。</span><span lang="en">Collaborated with product/engineering to translate prototypes into deployable components.</span></li>
-                        </ul>
-                    </a>
-                    </li>
-                    <li>
-                    <a class="timeline-item timeline-link" href="detail.html?item=experience-science42-researcher">
-                        <div class="timeline-head">
-                            <h3 class="timeline-title">
-                                <span lang="zh-CN">AI 算法研究员 · Science42.tech（北京）</span>
-                                <span lang="en">AI Algorithm Researcher · Science42.tech (Beijing)</span>
-                            </h3>
-                            <p class="timeline-time"><time datetime="2025">2025</time></p>
-                        </div>
-                        <ul class="bullets muted">
-                            <li><span lang="zh-CN">研究 Transformers / Diffusion / GNN 在流体、医学与能源等科学场景的应用。</span><span lang="en">Researched Transformers/Diffusion/GNNs for scientific domains including fluids, biomedicine, and energy systems.</span></li>
-                            <li><span lang="zh-CN">与清华大学、西湖大学、IMEC（比利时）等团队保持学术合作与交流。</span><span lang="en">Maintained close collaborations with Tsinghua, Westlake University, and IMEC (Belgium) through joint studies and exchanges.</span></li>
-                            <li><span lang="zh-CN">开发 physics-informed AI 模型并推动高质量论文产出（投稿至《Physics of Fluids》等）。</span><span lang="en">Developed physics-informed AI models and contributed to high-quality publications (e.g., submissions to Physics of Fluids).</span></li>
-                            <li><span lang="zh-CN">与跨学科团队协作研究代码与流程，并指导实习生完成科研与技术任务。</span><span lang="en">Worked with interdisciplinary teams on research pipelines and mentored interns on technical/research tasks.</span></li>
-                        </ul>
-                    </a>
-                    </li>
-                    <li>
-                    <a class="timeline-item timeline-link" href="detail.html?item=experience-kavli-intern">
-                        <div class="timeline-head">
-                            <h3 class="timeline-title">
-                                <span lang="zh-CN">暑期实习 · Kavli Institute of Cosmology（剑桥）</span>
-                                <span lang="en">Summer Intern · Kavli Institute of Cosmology (Cambridge)</span>
-                            </h3>
-                            <p class="timeline-time"><time datetime="2022-06">2022</time></p>
-                        </div>
-                        <ul class="bullets muted">
-                            <li><span lang="zh-CN">研究 ML 增强的 Bayesian inference：使用 nested sampling 训练宇宙学数据，并用 masked aggressive flow 生成后验。</span><span lang="en">Worked on ML-enhanced Bayesian inference for cosmology: nested sampling + masked aggressive flow for posterior generation.</span></li>
-                            <li><span lang="zh-CN">参与开源 Python 包 “margarine” 的贡献与协作。</span><span lang="en">Contributed to the “margarine” Python package on GitHub.</span></li>
-                        </ul>
-                    </a>
-                    </li>
-                    <li>
-                    <a class="timeline-item timeline-link" href="detail.html?item=experience-purple-mountain-intern">
-                        <div class="timeline-head">
-                            <h3 class="timeline-title">
-                                <span lang="zh-CN">暑期实习 · 紫金山天文台（南京）</span>
-                                <span lang="en">Summer Intern · Purple Mountain Observatory (Nanjing)</span>
-                            </h3>
-                            <p class="timeline-time"><time datetime="2021-06">2021</time></p>
-                        </div>
-                        <ul class="bullets muted">
-                            <li><span lang="zh-CN">对 GRB 现象做系统性综述；用 Python 对 Swift GRB 数据进行拟合与分析。</span><span lang="en">Reviewed GRB literature and analyzed Swift GRB data with Python (fitting and statistical analysis).</span></li>
-                            <li><span lang="zh-CN">使用统计方法改进参数估计，熟悉 iminuit 的最小化与误差分析流程。</span><span lang="en">Applied statistical methods for parameter estimation; used iminuit for minimization and uncertainty analysis.</span></li>
-                        </ul>
-                    </a>
+                    <li class="reveal">
+                        <a class="pub" href="detail.html?item=publication-expanding-balloon">
+                            <p class="pub-title">An expanding balloon: a small universe</p>
+                            <p class="pub-authors"><strong>Xu, Beichen</strong>; Su, Jun; Wang, Weiguo</p>
+                            <p class="pub-venue"><em>Physics Education</em> 53.6 (2018): 065005</p>
+                        </a>
                     </li>
                 </ol>
             </div>
         </section>
 
-        <section class="tile tile--highlights" id="highlights" aria-labelledby="highlights-title">
-            <div class="container">
-                <h2 id="highlights-title"><span lang="zh-CN">摘要</span><span lang="en">Highlights</span></h2>
-                <ul class="bullets muted">
-                    <li>
-                        <span lang="zh-CN">方向：二次元实体与商业化出版 / AIGC 系统 / 计算机视觉与多模态</span>
-                        <span lang="en">Focus: anime goods &amp; commercial publishing / AIGC systems / computer vision &amp; multimodal</span>
-                    </li>
-                    <li>
-                        <span lang="zh-CN">能力：模型研发、数据融合、可复现训练与评估、多GPU工作流</span>
-                        <span lang="en">Strengths: modeling, data fusion, reproducible training & evaluation, multi-GPU workflows</span>
-                    </li>
-                    <li>
-                        <span lang="zh-CN">合作：跨学科协作，把原型推进到可交付组件</span>
-                        <span lang="en">Collaboration: cross-functional work from prototype to deployable components</span>
-                    </li>
-                </ul>
-                <ul class="meta">
-                    <li><span lang="zh-CN">Transformer</span><span lang="en">Transformers</span></li>
-                    <li><span lang="zh-CN">扩散模型</span><span lang="en">Diffusion</span></li>
-                    <li><span lang="zh-CN">图神经网络</span><span lang="en">GNN</span></li>
-                    <li>LoRA</li>
-                    <li>PyTorch</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="tile tile--publications" id="publications">
-            <div class="container">
-                <h2><span lang="zh-CN">论文</span><span lang="en">Publications</span></h2>
-                <ol class="pubs">
-                    <li>
-                    <a class="pub pub-link" href="detail.html?item=publication-expanding-balloon">
-                        <p class="pub-title">“An expanding balloon: a small universe.”</p>
-                        <p class="muted pub-meta">
-                            <span lang="zh-CN">Xu, Beichen; Su, Jun; Wang, Weiguo · Physics Education 53.6 (2018): 065005.</span>
-                            <span lang="en">Xu, Beichen; Su, Jun; Wang, Weiguo · Physics Education 53.6 (2018): 065005.</span>
-                        </p>
-                    </a>
-                    </li>
-                    <li>
-                    <a class="pub pub-link" href="detail.html?item=publication-aerodit-paper">
-                        <p class="pub-title">“AeroDiT: Diffusion Transformers for Reynolds-Averaged Navier-Stokes Simulations of Airfoil Flows”</p>
-                        <p class="muted pub-meta">Beichen Xu, Yuhao Ma, Biyue Pan, Hao Zheng, Zhibo Dai, Chunyang Wang, Hui Xiang, Dixia Fan</p>
-                    </a>
-                    </li>
-                </ol>
-            </div>
-        </section>
-
-        <section class="tile tile--skills" id="skills">
-            <div class="container">
-                <h2><span lang="zh-CN">技能</span><span lang="en">Skills</span></h2>
-                <div class="grid cards">
-                    <article class="card">
-                        <h3 class="card-title"><span lang="zh-CN">编程 / 框架</span><span lang="en">Programming</span></h3>
-                        <ul class="bullets muted">
-                            <li>Python, C++, Mathematica, SQL</li>
-                            <li>PyTorch, TensorFlow</li>
+        <!-- Skills -->
+        <section class="section" id="skills" aria-labelledby="skills-title">
+            <div class="container section-grid">
+                <header class="section-head">
+                    <p class="eyebrow">06 / Skills</p>
+                    <h2 id="skills-title"><span lang="zh-CN">技能与奖项</span><span lang="en">Skills &amp; Awards</span></h2>
+                </header>
+                <div class="skill-grid section-body">
+                    <article class="card reveal">
+                        <h3 class="card-label"><span lang="zh-CN">编程 / 框架</span><span lang="en">Programming</span></h3>
+                        <ul class="chips chips-sm">
+                            <li>Python</li><li>C++</li><li>Mathematica</li><li>SQL</li><li>PyTorch</li><li>TensorFlow</li>
                         </ul>
                     </article>
-                    <article class="card">
-                        <h3 class="card-title"><span lang="zh-CN">工程工具</span><span lang="en">Tooling</span></h3>
-                        <ul class="bullets muted">
-                            <li>Linux / Unix / Bash / vim</li>
-                            <li>git / LaTeX / Docker</li>
+                    <article class="card reveal">
+                        <h3 class="card-label"><span lang="zh-CN">工程工具</span><span lang="en">Tooling</span></h3>
+                        <ul class="chips chips-sm">
+                            <li>Linux / Unix</li><li>Bash</li><li>vim</li><li>git</li><li>LaTeX</li><li>Docker</li>
+                        </ul>
+                    </article>
+                    <article class="card reveal">
+                        <h3 class="card-label"><span lang="zh-CN">语言</span><span lang="en">Languages</span></h3>
+                        <ul class="kv-list">
+                            <li><span lang="zh-CN">中文</span><span lang="en">Chinese</span><span class="muted"><span lang="zh-CN">母语</span><span lang="en">Native</span></span></li>
+                            <li><span lang="zh-CN">英文</span><span lang="en">English</span><span class="muted"><span lang="zh-CN">流利</span><span lang="en">Fluent</span></span></li>
+                            <li><span lang="zh-CN">日语</span><span lang="en">Japanese</span><span class="muted">JLPT N3</span></li>
+                        </ul>
+                    </article>
+                    <article class="card reveal">
+                        <h3 class="card-label"><span lang="zh-CN">奖项</span><span lang="en">Awards</span></h3>
+                        <ul class="award-list">
+                            <li><span class="award-year">2020</span><span><span lang="zh-CN">南通市长科技创新奖</span><span lang="en">Nantong Mayor’s Award for Science &amp; Technology Innovation</span></span></li>
+                            <li><span class="award-year">2019</span><span><span lang="zh-CN">江苏省物理奥赛一等奖</span><span lang="en">Physics Olympiad (Jiangsu) — First prize</span></span></li>
+                            <li><span class="award-year">2018</span><span><span lang="zh-CN">未来科学家大奖（银奖）</span><span lang="en">Award Program for Future Scientists — Silver</span></span></li>
                         </ul>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="tile tile--skills-more" id="skills-more" aria-label="More skills">
+        <!-- Contact -->
+        <section class="section section--contact" id="contact" aria-labelledby="contact-title">
             <div class="container">
-                <h2><span lang="zh-CN">语言与奖项</span><span lang="en">Languages & Awards</span></h2>
-                <div class="grid cards">
-                    <article class="card">
-                        <h3 class="card-title"><span lang="zh-CN">语言</span><span lang="en">Languages</span></h3>
-                        <ul class="bullets muted">
-                            <li><span lang="zh-CN">中文：母语</span><span lang="en">Chinese: Native</span></li>
-                            <li><span lang="zh-CN">英文：流利（口语与写作）</span><span lang="en">English: Fluent (spoken and written)</span></li>
-                            <li><span lang="zh-CN">日语：N3（中级）</span><span lang="en">Japanese: Intermediate (JLPT N3)</span></li>
-                        </ul>
-                    </article>
-                    <article class="card">
-                        <h3 class="card-title"><span lang="zh-CN">奖项</span><span lang="en">Awards</span></h3>
-                        <ul class="bullets muted">
-                            <li><span lang="zh-CN">2018 · 未来科学家大奖（银奖）</span><span lang="en">2018 · Award Program for Future Scientists — Silver medal</span></li>
-                            <li><span lang="zh-CN">2019 · 江苏省物理奥赛一等奖</span><span lang="en">2019 · Physics Olympiad (Jiangsu, China) — First prize</span></li>
-                            <li><span lang="zh-CN">2020 · 南通市长科技创新奖</span><span lang="en">2020 · Nantong Mayor’s Award for Science & Technology Innovation</span></li>
-                        </ul>
-                    </article>
+                <div class="contact-panel reveal">
+                    <p class="eyebrow">07 / Contact</p>
+                    <h2 id="contact-title" class="contact-title">
+                        <span lang="zh-CN">聊聊合作？</span>
+                        <span lang="en">Let’s talk.</span>
+                    </h2>
+                    <p class="contact-lead">
+                        <span lang="zh-CN">如需交流合作、项目讨论或学术/工程问题，欢迎通过邮件或社交平台联系我。</span>
+                        <span lang="en">For collaboration, project discussions, or research/engineering topics, feel free to reach out via email or social platforms.</span>
+                    </p>
+                    <div class="contact-actions">
+                        <a class="btn btn-primary btn-lg" href="mailto:beichenxu0249@gmail.com">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                            beichenxu0249@gmail.com
+                        </a>
+                        <a class="btn btn-secondary btn-lg" href="https://github.com/BeichenXu" rel="me">GitHub</a>
+                        <a class="btn btn-secondary btn-lg" href="https://www.linkedin.com/in/beichenxu/" rel="me">LinkedIn</a>
+                        <a class="btn btn-secondary btn-lg" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">下载简历</a>
+                        <a class="btn btn-secondary btn-lg" href="./BeichenXu/CV.pdf" lang="en">Download CV</a>
+                    </div>
+                    <p class="contact-phone muted">
+                        <span lang="zh-CN">电话 <a href="tel:+8618260568009">+86 182 6056 8009</a></span>
+                        <span lang="en">Phone <a href="tel:+447410915752">+44 7410 915752</a></span>
+                    </p>
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-grid" id="contact">
-            <div class="footer-contact" aria-labelledby="footer-contact-title">
-                <h2 class="footer-title" id="footer-contact-title">
-                    <span lang="zh-CN">联系</span><span lang="en">Contact</span>
-                </h2>
-                <p class="footer-lead">
-                    <span lang="zh-CN">如需交流合作、项目讨论或学术/工程问题，欢迎通过邮件或社交平台联系我。</span>
-                    <span lang="en">For collaboration, project discussions, or research/engineering topics, feel free to reach out via email or social platforms.</span>
-                </p>
-                <div class="contact-row">
-                    <a class="btn btn-secondary" href="./BeichenXu/CV_zh.pdf" lang="zh-CN">下载简历</a>
-                    <a class="btn btn-secondary" href="./BeichenXu/CV.pdf" lang="en">Download CV</a>
-                    <a class="btn btn-ghost" href="mailto:beichenxu0249@gmail.com"><span lang="zh-CN">邮件</span><span lang="en">Email</span></a>
-                    <a class="btn btn-ghost" href="https://github.com/BeichenXu" rel="me">GitHub</a>
-                    <a class="btn btn-ghost" href="https://www.linkedin.com/in/beichenxu/" rel="me">LinkedIn</a>
-                </div>
-            </div>
-
-            <div class="footer-inner">
-            <p class="footer-copy">
-                <span>© 2026 徐北辰</span>
-                <span class="dot" aria-hidden="true">·</span>
-                <span class="muted">
-                    <span lang="zh-CN">个人网站</span>
-                    <span lang="en">Personal site</span>
-                </span>
-            </p>
-            </div>
+        <div class="container footer-inner">
+            <p>© 2026 徐北辰 · Beichen Xu</p>
+            <a class="back-top" href="#top">
+                <span lang="zh-CN">回到顶部</span><span lang="en">Back to top</span> ↑
+            </a>
         </div>
     </footer>
-
-    <script>
-        (() => {
-            const root = document.documentElement;
-            root.classList.add('js');
-            const zhBtn = document.querySelector('[data-set-lang="zh"]');
-            const enBtn = document.querySelector('[data-set-lang="en"]');
-
-            const setLang = (lang) => {
-                root.dataset.lang = lang;
-                zhBtn?.setAttribute('aria-pressed', lang === 'zh' ? 'true' : 'false');
-                enBtn?.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
-                try { localStorage.setItem('lang', lang); } catch { /* ignore */ }
-            };
-
-            const saved = (() => {
-                try { return localStorage.getItem('lang'); } catch { return null; }
-            })();
-
-            const prefersZh = (navigator.language || '').toLowerCase().startsWith('zh');
-            setLang(saved || (prefersZh ? 'zh' : 'en'));
-
-            zhBtn?.addEventListener('click', () => setLang('zh'));
-            enBtn?.addEventListener('click', () => setLang('en'));
-
-            // Mobile nav (progressive enhancement)
-            const navToggle = document.querySelector('[data-nav-toggle]');
-            const drawer = document.getElementById('header-drawer');
-
-            const setNavOpen = (open) => {
-                root.dataset.navOpen = open ? 'true' : 'false';
-                navToggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
-                navToggle?.setAttribute('aria-label', open ? '关闭菜单 / Close menu' : '打开菜单 / Open menu');
-            };
-
-            // Default closed on small screens when JS is available
-            setNavOpen(false);
-
-            navToggle?.addEventListener('click', () => {
-                const isOpen = root.dataset.navOpen === 'true';
-                setNavOpen(!isOpen);
-            });
-
-            // Close when a nav link is clicked (mobile)
-            drawer?.addEventListener('click', (e) => {
-                const a = e.target?.closest?.('a');
-                if (a) setNavOpen(false);
-            });
-
-            // Close on Escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') setNavOpen(false);
-            });
-
-            // If we cross into desktop, ensure drawer state doesn't get stuck
-            const mq = window.matchMedia('(min-width: 48rem)');
-            const onMq = () => {
-                if (mq.matches) setNavOpen(false);
-            };
-            try { mq.addEventListener('change', onMq); } catch { mq.addListener?.(onMq); }
-        })();
-    </script>
 </body>
 </html>
